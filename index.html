@@ -787,5 +787,58 @@ if(memo){function refreshMemo(){if(['공식 일정 달력에서 가져옴','公�
  document.getElementById('showForm')?.addEventListener('submit',toNative,true);
 })();
 </script>
-<div id="xia-build-version" aria-label="Build version" style="text-align:center;padding:12px;color:#947b91;font-size:11px">XIA Fan Planner · v42</div>
+<div id="xia-build-version" aria-label="Build version" style="text-align:center;padding:12px;color:#947b91;font-size:11px">XIA Fan Planner · v44</div>
+<style>
+.xia-date-wrap{position:relative;width:100%;min-width:0}.xia-date-wrap>input[type=date]{position:absolute!important;opacity:0!important;width:1px!important;height:1px!important;pointer-events:none!important;left:0}.xia-date-btn{width:100%;min-height:50px;background:#fff;border:1px solid #ead5e8;border-radius:12px;padding:10px 13px;color:#49384a;font:inherit;display:flex;align-items:center;justify-content:space-between;text-align:left;cursor:pointer}.xia-date-btn:focus-visible{outline:2px solid #c653a0}.xia-calendar{position:absolute;top:calc(100% + 5px);left:0;z-index:2000;width:min(310px,90vw);background:#fff;border:1px solid #e9c4de;border-radius:15px;box-shadow:0 8px 26px #3b20452b;padding:12px;color:#49384a}.xia-calendar[hidden]{display:none!important}.xia-cal-head{display:flex;align-items:center;justify-content:space-between;gap:5px;margin-bottom:10px}.xia-cal-head button,.xia-cal-grid button{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;border-radius:7px;padding:8px 2px}.xia-cal-head button{padding:7px 12px}.xia-cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;text-align:center}.xia-cal-grid span{font-size:12px;color:#8c778a;padding:7px 0}.xia-cal-grid button:hover{background:#fce5f5}.xia-cal-grid button[aria-current=date]{background:#c653a0;color:#fff}.xia-cal-grid button:disabled{opacity:.25;cursor:default}
+.xia-cal-today{margin:0 0 8px auto;display:block;border:1px solid #e9c4de;border-radius:8px;background:#fff;color:#a23c83;padding:5px 12px;font:inherit;cursor:pointer}
+</style>
+<script id="xia-v43-locale-and-calendar">
+(()=>{
+ const translations={
+ 'ja':{'항공사':'航空会社','편명':'便名','출발 날짜':'出発日','출발 시간':'出発時刻','출발 공항':'出発空港','도착 날짜':'到着日','도착 시간':'到着時刻','도착 공항':'到着空港','좌석':'座席','터미널':'ターミナル','예약번호':'予約番号','위탁 수하물 유무':'受託手荷物の有無','기내 수하물 (kg)':'機内持ち込み手荷物 (kg)','위탁 수하물 (kg)':'受託手荷物 (kg)','금액 (선택)':'金額（任意）','예: 대한항공':'例：大韓航空','예: KE703':'例：KE703','예: 인천 ICN':'例：仁川 ICN','예: 도쿄 HND':'例：東京 HND','예: 제2터미널':'例：第2ターミナル','예: 250,000원':'例：250,000ウォン','예: 25A':'例：25A','예: 10':'例：10','예: 23':'例：23','미입력':'未入力','있음':'あり','없음':'なし','연도-월-일':'年-月-日','공식 일정 달력에서 가져옴':'公式カレンダーから読み込み','좌석과 티켓정보를 입력하고 저장하세요':'座席とチケット情報を入力して保存してください','좌석과 티켓 정보를 입력하고 저장하세요':'座席とチケット情報を入力して保存してください','항공권 추가':'航空券を追加','도착 날짜':'到着日','출발일':'出発日','출발시각':'出発時刻','도착시각':'到着時刻','금액':'金額','기타 메모':'その他のメモ'},
+ 'zh':{'항공사':'航空公司','편명':'航班号','출발 날짜':'出发日期','출발 시간':'出发时间','출발 공항':'出发机场','도착 날짜':'抵达日期','도착 시간':'抵达时间','도착 공항':'抵达机场','좌석':'座位','터미널':'航站楼','예약번호':'预订编号','위탁 수하물 유무':'是否托运行李','기내 수하물 (kg)':'随身行李 (kg)','위탁 수하물 (kg)':'托运行李 (kg)','금액 (선택)':'金额（可选）','예: 대한항공':'例如：大韩航空','예: 인천 ICN':'例如：仁川 ICN','예: 도쿄 HND':'例如：东京 HND','예: 제2터미널':'例如：2号航站楼','예: 250,000원':'例如：250,000韩元','미입력':'未填写','있음':'有','없음':'无','연도-월-일':'年-月-日','공식 일정 달력에서 가져옴':'从官方日历导入','좌석과 티켓정보를 입력하고 저장하세요':'请填写座位和票务信息后保存','좌석과 티켓 정보를 입력하고 저장하세요':'请填写座位和票务信息后保存'}
+ };
+ const lang=()=>window.xiaPlannerLanguage||'ko';
+ const originalText=new WeakMap(), renderedText=new WeakMap(),originalAttrs=new WeakMap();
+ function convert(s){const l=lang();if(l==='ko')return s;let t=translations[l]?.[s];if(t)return t;return s;}
+ function translateTree(){
+  document.querySelectorAll('#tripFields .field label,#tripFields input,#tripFields select,#tripFields option,#tripFields textarea,#travelForm .field label,#travelForm input,#travelForm option').forEach(el=>{
+   if(el.closest('.xia-calendar'))return;
+   if(el.matches('input,textarea')){
+    let original=originalAttrs.get(el);if(!original){original=el.getAttribute('placeholder');originalAttrs.set(el,original)}
+    if(original!==null){const wanted=convert(original);if(el.getAttribute('placeholder')!==wanted)el.setAttribute('placeholder',wanted)}
+   }
+   if(el.matches('label,option')){
+    let original=originalText.get(el);if(original===undefined){original=el.textContent;originalText.set(el,original)}
+    const last=renderedText.get(el);
+    if(last!==undefined&&el.textContent!==last&&el.textContent!==original){original=el.textContent;originalText.set(el,original)}
+    const wanted=convert(original.trim());renderedText.set(el,wanted);if(el.textContent!==wanted)el.textContent=wanted;
+   }
+  });
+ }
+ const names={ko:['일','월','화','수','목','금','토'],ja:['日','月','火','水','木','金','土'],zh:['日','一','二','三','四','五','六']};
+ const monthLabel=(year,month)=>lang()==='ja'?`${year}年 ${month+1}月`:lang()==='zh'?`${year}年${month+1}月`:`${year}년 ${month+1}월`;
+ function installDate(input){if(input.dataset.xiaDateReady)return;input.dataset.xiaDateReady='1';
+  const wrap=document.createElement('div');wrap.className='xia-date-wrap';input.before(wrap);wrap.append(input);
+  const btn=document.createElement('button');btn.type='button';btn.className='xia-date-btn';btn.setAttribute('aria-label','Choose date');wrap.append(btn);
+  const cal=document.createElement('div');cal.className='xia-calendar';cal.hidden=true;wrap.append(cal);
+  let focus=new Date();if(input.value&&/^\d{4}-\d{2}-\d{2}$/.test(input.value))focus=new Date(input.value+'T12:00:00');
+  function sync(){const placeholder={ko:'날짜 선택',ja:'日付を選択',zh:'选择日期'}[lang()]||'Date';btn.textContent='';const span=document.createElement('span');span.textContent=input.value||placeholder;const ic=document.createElement('span');ic.textContent='▦';ic.setAttribute('aria-hidden','true');btn.append(span,ic);btn.setAttribute('aria-label',placeholder);}
+  function paint(){const year=focus.getFullYear(),month=focus.getMonth();cal.replaceChildren();const head=document.createElement('div');head.className='xia-cal-head';const prev=document.createElement('button');prev.type='button';prev.textContent='‹';prev.setAttribute('aria-label',({ko:'이전 달',ja:'前月',zh:'上个月'}[lang()]||'Previous month'));const title=document.createElement('strong');title.textContent=monthLabel(year,month);const next=document.createElement('button');next.type='button';next.textContent='›';next.setAttribute('aria-label',({ko:'다음 달',ja:'翌月',zh:'下个月'}[lang()]||'Next month'));head.append(prev,title,next);cal.append(head);const todayBtn=document.createElement('button');todayBtn.type='button';todayBtn.className='xia-cal-today';todayBtn.textContent=({ko:'오늘',ja:'今日',zh:'今天'}[lang()]||'Today');todayBtn.onclick=()=>{const now=new Date();const value=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;input.value=value;input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));cal.hidden=true;sync()};cal.append(todayBtn);
+   prev.onclick=()=>{focus=new Date(year,month-1,1);paint()};next.onclick=()=>{focus=new Date(year,month+1,1);paint()};
+   const grid=document.createElement('div');grid.className='xia-cal-grid';cal.append(grid);names[lang()||'ko'].forEach(x=>{const d=document.createElement('span');d.textContent=x;grid.append(d)});
+   const offset=new Date(year,month,1).getDay(),total=new Date(year,month+1,0).getDate();for(let i=0;i<offset;i++)grid.append(document.createElement('span'));
+   for(let d=1;d<=total;d++){const day=document.createElement('button');day.type='button';day.textContent=String(d);const value=`${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;if(input.value===value)day.setAttribute('aria-current','date');day.onclick=()=>{input.value=value;input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));cal.hidden=true;sync()};grid.append(day)}
+  }
+  btn.onclick=()=>{document.querySelectorAll('.xia-calendar').forEach(x=>{if(x!==cal)x.hidden=true});cal.hidden=!cal.hidden;if(!cal.hidden){if(input.value)focus=new Date(input.value+'T12:00:00');paint()}};
+  input.addEventListener('change',sync);const obs=new MutationObserver(sync);obs.observe(input,{attributes:true,attributeFilter:['value']});sync();
+  document.addEventListener('xia-language-changed',()=>{sync();if(!cal.hidden)paint()});
+ }
+ let scheduled=false;function scan(){if(scheduled)return;scheduled=true;queueMicrotask(()=>{scheduled=false;translateTree();document.querySelectorAll('input[type="date"]').forEach(installDate)})}
+ document.addEventListener('click',e=>{if(!e.target.closest('.xia-date-wrap'))document.querySelectorAll('.xia-calendar').forEach(c=>c.hidden=true)},true);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.xia-calendar').forEach(c=>c.hidden=true)});
+ document.addEventListener('xia-language-changed',scan);
+ new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});scan();
+})();
+</script>
 </body></html>
