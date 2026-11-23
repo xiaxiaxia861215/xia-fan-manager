@@ -281,14 +281,26 @@ function migrateCheckCategories(){let changed=false;const packing=new Set(['응�
 migrateCheckCategories();
 function uid(){return typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():'id-'+Date.now()+'-'+Math.random().toString(36).slice(2)}
 function display(){const sorted=sortShows();$('#countShow').textContent=state.shows.length;let todo=0;Object.values(state.checks).forEach(a=>{if(Array.isArray(a))todo+=a.filter(i=>i&&!i.done).length});$('#countTodo').textContent=todo;const future=sorted.filter(x=>daysUntil(x.date)>=0);$('#nextDday').textContent=future.length?dday(future[0].date):'—';renderShows();renderSelects();renderChecks();renderTrip()}
+// Localized official-event labels are display-only; personal saved data stays untouched.
+function displayOfficialField(show, field){
+ if(!show.sourceId || !window.xiaOfficialEventById)return show[field]||'';
+ const event=window.xiaOfficialEventById[show.sourceId];
+ if(!event)return show[field]||'';
+ const lang=window.xiaPlannerLanguage||localStorage.getItem('xia_manager_language')||'ko';
+ const names=field==='title'?['title','name']:['place','venue','location'];
+ for(const name of names)for(const key of [name+lang,name+'_'+lang])if(typeof event[key]==='string'&&event[key].trim())return event[key];
+ if(lang!=='ko' && window.xiaOfficialTranslate)return window.xiaOfficialTranslate(show[field]||'',lang);
+ return show[field]||'';
+}
+document.addEventListener('xia-language-changed',()=>{display()});
 function renderShows(){
  const p=$('#showCards');let arr=sortShows();
  if(showFilter==='upcoming')arr=arr.filter(x=>daysUntil(x.date)>=0);
  if(showFilter==='completed')arr=arr.filter(x=>daysUntil(x.date)<0);
  if(!arr.length){p.innerHTML='<div class="empty"><div class="emoji">🎟️</div><strong>표시할 공연이 없어요</strong><p>공연을 등록하면 여기에 나타나요 ♡</p></div>';return}
- p.innerHTML=arr.map(s=>`<article class="card showcard"><div class="poster">${s.poster?`<img src="${escapeHtml(s.poster)}" alt="공연 포스터">`:'🎤'}<span class="dday">${escapeHtml(dday(s.date))}</span></div><div class="showbody"><h3>${escapeHtml(s.title)}</h3><div class="detail">📅 ${escapeHtml(fmtDate(s.date))}${s.time?' · '+escapeHtml(s.time):''}</div>${s.venue?`<div class="detail">📍 ${escapeHtml(s.venue)}</div>`:''}${s.seat?`<div class="detail">🎫 좌석 ${escapeHtml(s.seat)}</div>`:''}${s.ticket?`<div class="detail">💗 ${escapeHtml(s.ticket)}</div>`:''}${s.memo?`<div class="detail">📝 ${escapeHtml(s.memo)}</div>`:''}<div class="actions"><button class="btn small" data-action="edit" data-id="${escapeHtml(s.id)}">수정</button><button class="btn small" data-action="check" data-id="${escapeHtml(s.id)}">준비물</button><button class="btn small" data-action="trip" data-id="${escapeHtml(s.id)}">여행</button><button class="btn danger small" data-action="del" data-id="${escapeHtml(s.id)}">삭제</button></div></div></article>`).join('')
+ p.innerHTML=arr.map(s=>`<article class="card showcard"><div class="poster">${s.poster?`<img src="${escapeHtml(s.poster)}" alt="공연 포스터">`:'🎤'}<span class="dday">${escapeHtml(dday(s.date))}</span></div><div class="showbody"><h3>${escapeHtml(displayOfficialField(s,'title'))}</h3><div class="detail">📅 ${escapeHtml(fmtDate(s.date))}${s.time?' · '+escapeHtml(s.time):''}</div>${s.venue?`<div class="detail">📍 ${escapeHtml(displayOfficialField(s,'venue'))}</div>`:''}${s.seat?`<div class="detail">🎫 좌석 ${escapeHtml(s.seat)}</div>`:''}${s.ticket?`<div class="detail">💗 ${escapeHtml(s.ticket)}</div>`:''}${s.memo?`<div class="detail">📝 ${escapeHtml(s.memo)}</div>`:''}<div class="actions"><button class="btn small" data-action="edit" data-id="${escapeHtml(s.id)}">수정</button><button class="btn small" data-action="check" data-id="${escapeHtml(s.id)}">준비물</button><button class="btn small" data-action="trip" data-id="${escapeHtml(s.id)}">여행</button><button class="btn danger small" data-action="del" data-id="${escapeHtml(s.id)}">삭제</button></div></div></article>`).join('')
 }
-function renderSelects(){const ids=state.shows.map(x=>x.id);if(!ids.includes(selectedCheck))selectedCheck=ids[0]||'';if(!ids.includes(selectedTravel)&&selectedTravel!=='__general__')selectedTravel=ids[0]||'__general__';const opts=sortShows().map(s=>`<option value="${escapeHtml(s.id)}">${escapeHtml(fmtDate(s.date))} · ${escapeHtml(s.title)}</option>`).join('');[['#checkShowSelect',selectedCheck],['#travelShowSelect',selectedTravel]].forEach(([sel,id])=>{const el=$(sel);el.innerHTML=(sel==='#travelShowSelect'?'<option value="__general__">공연 미지정 · 자유 여행</option>':'')+(opts|| (sel==='#travelShowSelect'?'':'<option value="">먼저 공연을 등록해 주세요</option>'));el.value=id})}
+function renderSelects(){const ids=state.shows.map(x=>x.id);if(!ids.includes(selectedCheck))selectedCheck=ids[0]||'';if(!ids.includes(selectedTravel)&&selectedTravel!=='__general__')selectedTravel=ids[0]||'__general__';const opts=sortShows().map(s=>`<option value="${escapeHtml(s.id)}">${escapeHtml(fmtDate(s.date))} · ${escapeHtml(displayOfficialField(s,'title'))}</option>`).join('');[['#checkShowSelect',selectedCheck],['#travelShowSelect',selectedTravel]].forEach(([sel,id])=>{const el=$(sel);el.innerHTML=(sel==='#travelShowSelect'?'<option value="__general__">공연 미지정 · 자유 여행</option>':'')+(opts|| (sel==='#travelShowSelect'?'':'<option value="">먼저 공연을 등록해 주세요</option>'));el.value=id})}
 function renderChecks(){const el=$('#checkItems'),form=$('#checkAddForm');form.querySelector('input').disabled=!selectedCheck;form.querySelector('button').disabled=!selectedCheck;if(!selectedCheck){el.innerHTML='<div class="empty"><div class="emoji">✅</div><strong>먼저 공연을 등록해주세요</strong><p>공연마다 나만의 준비 항목이 생겨요.</p></div>';$('#checkProgress').style.width='0%';$('#checkPct').textContent='0% 준비 완료';return}initChecks(selectedCheck);const arr=checkList(selectedCheck),items=arr.filter(x=>x.cat===activeCategory),done=arr.filter(x=>x.done).length,total=arr.length,percent=total?Math.round(done/total*100):0;$('#checkProgress').style.width=percent+'%';$('#checkPct').textContent=`${percent}% 준비 완료 (${done}/${total})`;el.innerHTML=`<div class="checkcat">${escapeHtml(activeCategory)} 항목</div>`+(items.length?items.map(x=>`<label class="checkitem ${x.done?'checked':''}"><input type="checkbox" data-cid="${escapeHtml(x.id)}" ${x.done?'checked':''}><span class="itemtext">${escapeHtml(x.text)}</span><button type="button" title="항목 삭제" aria-label="항목 삭제" data-remove="${escapeHtml(x.id)}">×</button></label>`).join(''):'<p class="nodata">아직 이 분류의 항목이 없어요. 아래에서 추가해 보세요.</p>')}
 
 const tripSchemas={
@@ -533,6 +545,23 @@ function setLinks(url){document.querySelectorAll('[data-calendar-link]').forEach
 setLinks(saved);
 $('saveCalendarUrl').addEventListener('click',()=>{const url=urlInput.value.trim();if(!/^https:\/\/[^\s]+$/i.test(url)){urlStatus.textContent='https://로 시작하는 실제 달력 주소를 입력해 주세요.';return}localStorage.setItem('xia_calendar_live_url',url);setLinks(url);urlStatus.textContent='달력 주소를 저장했어요.'});
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// Known event-name translations; used only when the official calendar lacks localized fields.
+const knownOfficialNames={
+ '엘리자벳 · 낮 공연':{ja:'エリザベート・昼公演',zh:'伊丽莎白·日场'},
+ '엘리자벳 · 저녁 공연':{ja:'エリザベート・夜公演',zh:'伊丽莎白·晚场'},
+ '엘리자벳 · 김준수 막공':{ja:'エリザベート・キム・ジュンス千秋楽',zh:'伊丽莎白·金俊秀末场'},
+ 'PALMTREE ISLAND 5주년':{ja:'PALMTREE ISLAND 5周年',zh:'PALMTREE ISLAND 五周年'},
+ '블루스퀘어':{ja:'ブルースクエア',zh:'Blue Square 蓝色广场'}
+};
+function officialTranslate(v,lang){
+ const raw=String(v||'');if(lang==='ko')return raw;
+ if(knownOfficialNames[raw]?.[lang])return knownOfficialNames[raw][lang];
+ // Safe partial fallback for familiar calendar terms, not arbitrary user-entered notes.
+ const terms=lang==='ja'?{'엘리자벳':'エリザベート','낮 공연':'昼公演','저녁 공연':'夜公演','김준수 막공':'キム・ジュンス千秋楽','5주년':'5周年','막공':'千秋楽'}:{'엘리자벳':'伊丽莎白','낮 공연':'日场','저녁 공연':'晚场','김준수 막공':'金俊秀末场','5주년':'五周年','막공':'末场'};
+ let result=raw;for(const [a,b] of Object.entries(terms))result=result.split(a).join(b);
+ return result;
+}
+window.xiaOfficialTranslate=officialTranslate;
 let official=[];
 const officialLang=()=>window.xiaPlannerLanguage||localStorage.getItem('xia_manager_language')||'ko';
 const localized=(x,field)=>{
@@ -544,16 +573,16 @@ const localized=(x,field)=>{
    if(typeof x[k]==='string'&&x[k].trim())return x[k];
   }
  }
- // If the calendar has no translation for this field, fall back to Korean.
+ // If the calendar has no translation, use known event translations before Korean fallback.
  for(const key of aliases)for(const k of [key+'ko',key+'_ko',key]){
-  if(typeof x[k]==='string'&&x[k].trim())return x[k];
+  if(typeof x[k]==='string'&&x[k].trim())return officialTranslate(x[k],lang);
  }
  return '';
 };
 function renderOfficialCards(){
  cards.innerHTML=official.map((x,i)=>`<div class="official-card"><div><strong>${esc(localized(x,'title')||'제목 없음')}</strong><span>📅 ${esc(x.date)} ${esc(x.time||'')} · ${esc(localized(x,'place')||'장소 미등록')}</span></div><button type="button" class="btn small" data-firebase-pick="${i}">${officialLang()==='zh'?'添加到我的演出':officialLang()==='ja'?'マイ公演に追加':'내 공연에 추가'}</button></div>`).join('');
 }
-document.addEventListener('xia-language-changed',renderOfficialCards);
+document.addEventListener('xia-language-changed',()=>{renderOfficialCards();if(official.length){status.textContent=officialLang()==='ja'?`公式カレンダーから${official.length}件の予定を読み込みました。公演を選んでください。`:officialLang()==='zh'?`已从官方日历读取${official.length}条日程，请选择演出。`:`공식 달력에서 ${official.length}개 일정을 찾았어요. 원하는 공연을 선택해 주세요.`;}});
 btn.addEventListener('click',async()=>{
  btn.disabled=true;status.textContent='공식 일정 연결 중… (최대 15초 기다려 주세요)';cards.replaceChildren();
  try{
@@ -563,9 +592,23 @@ btn.addEventListener('click',async()=>{
   const config={apiKey:'AIzaSyCCpIrqaAL_qt-A6_I4UN9y0cGZr22C4Cs',authDomain:'xia-fan-calendar.firebaseapp.com',projectId:'xia-fan-calendar',storageBucket:'xia-fan-calendar.firebasestorage.app',messagingSenderId:'921232186204',appId:'1:921232186204:web:a8846244287c4dc4e9bf99'};
   const app=getApps().find(x=>x.name==='xia-manager-reader')||initializeApp(config,'xia-manager-reader');
   const snap=await Promise.race([getDocs(collection(getFirestore(app),'events')),new Promise((_,reject)=>setTimeout(()=>reject(new Error('15초 동안 서버 응답이 없습니다')),15000))]);
-  official=snap.docs.map(d=>({...d.data(),sourceId:d.id})).filter(x=>x.sourceId!=='xia_site_banner'&&/^\d{4}-\d{2}-\d{2}$/.test(x.date||'')&&['concert','musical','event','other'].includes(x.type));
+  // Import every dated calendar entry regardless of its category (including Korean '기타', ticket presales and special events).
+  // Exclude the banner document only; keep the original Firebase source IDs for linked personal entries.
+  official=snap.docs.map(d=>({...d.data(),sourceId:d.id})).filter(x=>{
+    if(x.sourceId==='xia_site_banner')return false;
+    const raw=String(x.date||x.startDate||x.eventDate||'').trim();
+    const match=raw.match(/^(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
+    if(!match)return false;
+    const yyyy=Number(match[1]),mm=Number(match[2]),dd=Number(match[3]);
+    const check=new Date(yyyy,mm-1,dd);
+    if(check.getFullYear()!==yyyy||check.getMonth()!==mm-1||check.getDate()!==dd)return false;
+    x.date=`${match[1]}-${String(mm).padStart(2,'0')}-${String(dd).padStart(2,'0')}`;
+    return true;
+  });
   official.sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
-  status.textContent=official.length?`공식 달력에서 ${official.length}개 일정을 찾았어요. 원하는 공연을 선택해 주세요.`:'연결됐지만 가져올 공연·행사 일정이 없어요.';
+  window.xiaOfficialEventById=Object.fromEntries(official.map(x=>[x.sourceId,x]));
+  document.dispatchEvent(new Event('xia-language-changed'));
+  status.textContent=official.length?(officialLang()==='ja'?`公式カレンダーから${official.length}件の予定を読み込みました。公演を選んでください。`:officialLang()==='zh'?`已从官方日历读取${official.length}条日程，请选择演出。`:`공식 달력에서 ${official.length}개 일정을 찾았어요. 원하는 공연을 선택해 주세요.`):'연결됐지만 가져올 공연·행사 일정이 없어요.';
   renderOfficialCards();
  }catch(err){console.error(err);status.textContent=`일정 연결 실패: ${err.message||'알 수 없는 오류'}. 브라우저 인터넷 연결 또는 Firebase 읽기 권한을 확인해 주세요.`}
  finally{btn.disabled=false}
