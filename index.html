@@ -148,10 +148,63 @@ body{background:linear-gradient(150deg,#ffedf8,#f9eaff 56%,#fff7fc)}
  .hero-copy h1{font-size:clamp(23px,6.5vw,30px)!important;letter-spacing:-.07em}
  .hero-brush{padding:7px 6px;box-shadow:none}.hero-brush strong{font-size:11px}.hero-brush span{font-size:9px}
  .hero-actions .btn{font-size:9px!important;padding:6px 5px!important}
- .hero-actions #backupBtn,.hero-actions #restoreBtn{display:none}
+ .hero-actions #backupBtn,.hero-actions #restoreBtn{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
 }
 </style>
-<style>.flight-direction-tabs{display:flex;gap:8px;margin:12px 0 15px}.flight-direction-tabs[hidden]{display:none}.direction-choice{border:1px solid #e6b5d9;border-radius:12px;background:#fff4fb;color:#8c4079;padding:11px 17px;font-size:15px;font-weight:800;cursor:pointer;flex:1}.direction-choice.active{background:#e942a1;color:white;border-color:#e942a1;box-shadow:0 3px 10px #e942a133}.trip-add{display:block;margin:10px 0 20px;width:100%;max-width:300px}.trip-shell{max-width:940px;margin:auto}.trip-shell>.field{max-width:550px;margin-bottom:16px}.trip-list{display:grid;gap:10px;margin:16px 0 20px}.trip-card{display:flex;justify-content:space-between;gap:12px;align-items:start;background:#fff9fe;border:1px solid #f3d9ec;border-radius:14px;padding:14px}.trip-card strong{color:#77205c}.trip-card p{margin:5px 0;font-size:13px;color:#69566a;overflow-wrap:anywhere}.trip-card-actions{display:flex;gap:5px;flex-shrink:0}#travelForm{border-top:1px solid #efd8e9;padding-top:16px}#travelForm h3{margin:0 0 12px}#tripFields .field{min-width:0}#tripFields input,#tripFields select,#tripFields textarea{width:100%;box-sizing:border-box}@media(max-width:520px){.trip-card{flex-direction:column}.trip-card-actions{align-self:flex-end}.traveltabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}</style><style>.route-step{border:1px solid #f0d0e8;border-radius:14px;padding:13px;margin:10px 0;background:#fffafd}.route-step-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.route-step-top button{border:1px solid #eac6df;background:white;border-radius:7px;padding:6px 10px;color:#79325f;margin-left:5px}.route-step-top button:disabled{opacity:.35}.route-preview{margin:10px 0;padding-left:24px;font-size:13px;line-height:1.9;color:#61445c}#routeSegments[hidden]{display:none}</style><style>.trip-card-main{min-width:0;flex:1}.trip-detail{margin-top:11px;border-top:1px solid #efd9e8;padding-top:10px}.trip-detail summary{cursor:pointer;color:#a02d79;font-weight:750;padding:6px 0}.trip-detail dl{display:grid;grid-template-columns:minmax(95px,33%) 1fr;gap:8px 12px;margin:10px 0}.trip-detail dt{font-size:12px;color:#856a7d}.trip-detail dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap;font-size:13px}.trip-detail a{overflow-wrap:anywhere}.trip-card-actions{align-self:start}#travelForm[hidden]{display:none}</style></head>
+<style>.flight-direction-tabs{display:flex;gap:8px;margin:12px 0 15px}.flight-direction-tabs[hidden]{display:none}.direction-choice{border:1px solid #e6b5d9;border-radius:12px;background:#fff4fb;color:#8c4079;padding:11px 17px;font-size:15px;font-weight:800;cursor:pointer;flex:1}.direction-choice.active{background:#e942a1;color:white;border-color:#e942a1;box-shadow:0 3px 10px #e942a133}.trip-add{display:block;margin:10px 0 20px;width:100%;max-width:300px}.trip-shell{max-width:940px;margin:auto}.trip-shell>.field{max-width:550px;margin-bottom:16px}.trip-list{display:grid;gap:10px;margin:16px 0 20px}.trip-card{display:flex;justify-content:space-between;gap:12px;align-items:start;background:#fff9fe;border:1px solid #f3d9ec;border-radius:14px;padding:14px}.trip-card strong{color:#77205c}.trip-card p{margin:5px 0;font-size:13px;color:#69566a;overflow-wrap:anywhere}.trip-card-actions{display:flex;gap:5px;flex-shrink:0}#travelForm{border-top:1px solid #efd8e9;padding-top:16px}#travelForm h3{margin:0 0 12px}#tripFields .field{min-width:0}#tripFields input,#tripFields select,#tripFields textarea{width:100%;box-sizing:border-box}@media(max-width:520px){.trip-card{flex-direction:column}.trip-card-actions{align-self:flex-end}.traveltabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}</style><style>.route-step{border:1px solid #f0d0e8;border-radius:14px;padding:13px;margin:10px 0;background:#fffafd}.route-step-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.route-step-top button{border:1px solid #eac6df;background:white;border-radius:7px;padding:6px 10px;color:#79325f;margin-left:5px}.route-step-top button:disabled{opacity:.35}.route-preview{margin:10px 0;padding-left:24px;font-size:13px;line-height:1.9;color:#61445c}#routeSegments[hidden]{display:none}</style><style>.trip-card-main{min-width:0;flex:1}.trip-detail{margin-top:11px;border-top:1px solid #efd9e8;padding-top:10px}.trip-detail summary{cursor:pointer;color:#a02d79;font-weight:750;padding:6px 0}.trip-detail dl{display:grid;grid-template-columns:minmax(95px,33%) 1fr;gap:8px 12px;margin:10px 0}.trip-detail dt{font-size:12px;color:#856a7d}.trip-detail dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap;font-size:13px}.trip-detail a{overflow-wrap:anywhere}.trip-card-actions{align-self:start}#travelForm[hidden]{display:none}</style><style id="xia-responsive-v34">
+/* Responsive layout: preserve controls instead of hiding them on phones. */
+html,body{max-width:100%;overflow-x:clip}
+.wrap,.main,.panel,.card,.showbody,.trip-shell{min-width:0}
+img,video,canvas{max-width:100%}
+.hero-actions{display:flex!important;flex-wrap:wrap!important;align-items:center;gap:8px}
+.hero-actions .btn,.hero-actions .official-link{display:inline-flex!important;align-items:center;justify-content:center;white-space:normal;text-align:center;min-height:40px}
+@media(max-width:800px){
+ .hero-actions .btn:not(#editBannerBtn){display:inline-flex!important}
+ .hero-actions .official-link{display:inline-flex!important}
+ .hero-layout{height:auto;min-height:0;align-items:center}
+ .hero-copy{min-width:0}
+ .hero-actions{margin-top:12px!important}
+ .hero-actions .btn{font-size:12px!important;padding:9px 11px!important}
+ .cards{grid-template-columns:1fr}
+ .formgrid{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:560px){
+ .wrap{padding-left:12px;padding-right:12px}
+ .hero-layout{grid-template-columns:minmax(90px,28%) minmax(0,1fr);padding:12px;gap:10px}
+ .hero-portrait{height:170px}
+ .hero-copy h1{font-size:clamp(21px,6vw,29px)!important;overflow-wrap:anywhere}
+ .hero-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .hero-actions .btn,.hero-actions .official-link{width:100%;font-size:12px!important;padding:9px 6px!important;min-height:42px;line-height:1.25}
+ .tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:5px}
+ .tab{font-size:12px;min-width:0;overflow-wrap:anywhere;line-height:1.35;padding:11px 4px}
+ .topstats{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ .stat{min-width:0;padding:10px 5px}
+ .stat .num{font-size:clamp(15px,4vw,21px)}
+ .stat .lab{overflow-wrap:anywhere;font-size:10px}
+ .panel,.card{padding:14px}
+ .sectionhead{flex-wrap:wrap}
+ .inlineform{flex-wrap:wrap}
+ .inlineform input{flex-basis:100%}
+ .showcard{min-width:0}
+ .showbody{min-width:0}
+ .actions{flex-wrap:wrap}
+ .field input,.field select,.field textarea{max-width:100%;font-size:16px}
+}
+@media(max-width:360px){
+ .hero-layout{grid-template-columns:1fr}
+ .hero-portrait{display:none}
+ .hero-actions{grid-template-columns:1fr 1fr}
+}
+</style>
+<style id="xia-v35-device-layout">
+/* PC, tablet and phone: keep backup/restore reachable on every screen. */
+@media(min-width:1100px){.hero-layout,.main{max-width:1100px;margin-left:auto;margin-right:auto}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:561px) and (max-width:1099px){.hero-layout,.main{width:100%;max-width:100%}.hero-actions{flex-wrap:wrap}.hero-actions #backupBtn,.hero-actions #restoreBtn{display:inline-flex!important}}
+@media(max-width:560px){#xiaLanguageBar{justify-content:center!important;padding:9px 8px!important;gap:5px!important}#xiaLanguageBar button{padding:7px 10px!important}.hero-actions #backupBtn,.hero-actions #restoreBtn{display:inline-flex!important;visibility:visible!important;opacity:1!important}.sectionhead .btn{max-width:100%}.modalbox{padding:16px;max-height:90dvh}.official-card{flex-wrap:wrap}.trip-card-actions{flex-wrap:wrap}.rowbetween{flex-wrap:wrap}}
+@media(max-width:380px){.hero-actions{grid-template-columns:minmax(0,1fr)!important}.hero-actions .btn,.hero-actions .official-link{width:100%!important}.topstats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+button,a,input,select,textarea{max-width:100%}
+</style>
+</head>
 <body>
 <header class="hero">
   <div class="hero-glow hero-glow-one"></div><div class="hero-glow hero-glow-two"></div>
