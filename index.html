@@ -288,8 +288,8 @@ function displayOfficialField(show, field){
  if(!event)return show[field]||'';
  const lang=window.xiaPlannerLanguage||localStorage.getItem('xia_manager_language')||'ko';
  const names=field==='title'?['title','name']:['place','venue','location'];
- for(const name of names)for(const key of [name+lang,name+'_'+lang])if(typeof event[key]==='string'&&event[key].trim())return event[key];
- if(lang!=='ko' && window.xiaOfficialTranslate)return window.xiaOfficialTranslate(show[field]||'',lang);
+ for(const name of names)for(const key of [name+lang,name+'_'+lang])if(typeof event[key]==='string'&&event[key].trim())return window.xiaOfficialTranslate?window.xiaOfficialTranslate(event[key],lang):event[key];
+ if(lang!=='ko' && window.xiaOfficialTranslate){const original=names.map(n=>event[n+'ko']||event[n+'_ko']||event[n]).find(v=>typeof v==='string'&&v.trim())||show[field]||'';return window.xiaOfficialTranslate(original,lang);}
  return show[field]||'';
 }
 document.addEventListener('xia-language-changed',()=>{display()});
@@ -551,14 +551,18 @@ const knownOfficialNames={
  '엘리자벳 · 저녁 공연':{ja:'エリザベート・夜公演',zh:'伊丽莎白·晚场'},
  '엘리자벳 · 김준수 막공':{ja:'エリザベート・キム・ジュンス千秋楽',zh:'伊丽莎白·金俊秀末场'},
  'PALMTREE ISLAND 5주년':{ja:'PALMTREE ISLAND 5周年',zh:'PALMTREE ISLAND 五周年'},
- '블루스퀘어':{ja:'ブルースクエア',zh:'Blue Square 蓝色广场'}
+ '블루스퀘어':{ja:'ブルースクエア',zh:'蓝色广场'}
+};
+const officialTerms={
+ ja:{'드라큘라':'ドラキュラ','대구 ·':'大邱・','오사카 공연':'大阪公演','엘리자벳':'エリザベート','오사카':'大阪','고베':'神戸','요코하마':'横浜','대구':'大邱','부산':'釜山','마카오':'マカオ','대만':'台湾','서울':'ソウル','김준수':'キム・ジュンス','김재중':'キム・ジェジュン','눈콘':'年末コンサート','연말 콘서트':'年末コンサート','선예매':'先行予約','일반예매':'一般発売','티켓팅':'チケット発売','낮 공연':'昼公演','저녁 공연':'夜公演','막공':'千秋楽','첫공':'初日公演','공연':'公演','콘서트':'コンサート','뮤지컬':'ミュージカル','방송':'放送','열린음악회':'開かれた音楽会','핸드볼경기장':'ハンドボール競技場','핸드볼 경기장':'ハンドボール競技場','계명아트센터':'啓明アートセンター','잠실':'蚕室','인스파이어':'インスパイア','벡스코':'BEXCO','5주년':'5周年','주년':'周年','팬미팅':'ファンミーティング','예매':'予約','티켓':'チケット','아레나':'アリーナ','올림픽공원':'オリンピック公園'},
+ zh:{'드라큘라':'德古拉','대구 ·':'大邱·','오사카 공연':'大阪演出','엘리자벳':'伊丽莎白','오사카':'大阪','고베':'神户','요코하마':'横滨','대구':'大邱','부산':'釜山','마카오':'澳门','대만':'台湾','서울':'首尔','김준수':'金俊秀','김재중':'金在中','눈콘':'年末演唱会','연말 콘서트':'年末演唱会','선예매':'优先预售','일반예매':'公开售票','티켓팅':'开票','낮 공연':'日场','저녁 공연':'晚场','막공':'末场','첫공':'首场','공연':'演出','콘서트':'演唱会','뮤지컬':'音乐剧','방송':'节目','열린음악회':'开放音乐会','핸드볼경기장':'手球馆','핸드볼 경기장':'手球馆','계명아트센터':'启明艺术中心','잠실':'蚕室','인스파이어':'迎仕柏','벡스코':'BEXCO','5주년':'五周年','주년':'周年','팬미팅':'粉丝见面会','예매':'预订','티켓':'门票','아레나':'竞技场','올림픽공원':'奥林匹克公园'}
 };
 function officialTranslate(v,lang){
- const raw=String(v||'');if(lang==='ko')return raw;
+ const raw=String(v||'');if(lang==='ko'||!raw)return raw;
  if(knownOfficialNames[raw]?.[lang])return knownOfficialNames[raw][lang];
- // Safe partial fallback for familiar calendar terms, not arbitrary user-entered notes.
- const terms=lang==='ja'?{'엘리자벳':'エリザベート','낮 공연':'昼公演','저녁 공연':'夜公演','김준수 막공':'キム・ジュンス千秋楽','5주년':'5周年','막공':'千秋楽'}:{'엘리자벳':'伊丽莎白','낮 공연':'日场','저녁 공연':'晚场','김준수 막공':'金俊秀末场','5주년':'五周年','막공':'末场'};
- let result=raw;for(const [a,b] of Object.entries(terms))result=result.split(a).join(b);
+ const terms=officialTerms[lang]||{};
+ let result=raw;
+ for(const [a,b] of Object.entries(terms).sort((a,b)=>b[0].length-a[0].length))result=result.split(a).join(b);
  return result;
 }
 window.xiaOfficialTranslate=officialTranslate;
@@ -570,7 +574,7 @@ const localized=(x,field)=>{
  const aliases=field==='title'?['title','name']:field==='place'?['place','venue','location']:['description','detail','desc'];
  for(const key of aliases){
   for(const k of [key+suffix,key+'_'+suffix,key+suffix.toUpperCase()]){
-   if(typeof x[k]==='string'&&x[k].trim())return x[k];
+   if(typeof x[k]==='string'&&x[k].trim())return officialTranslate(x[k],lang);
   }
  }
  // If the calendar has no translation, use known event translations before Korean fallback.
@@ -580,7 +584,7 @@ const localized=(x,field)=>{
  return '';
 };
 function renderOfficialCards(){
- cards.innerHTML=official.map((x,i)=>`<div class="official-card"><div><strong>${esc(localized(x,'title')||'제목 없음')}</strong><span>📅 ${esc(x.date)} ${esc(x.time||'')} · ${esc(localized(x,'place')||'장소 미등록')}</span></div><button type="button" class="btn small" data-firebase-pick="${i}">${officialLang()==='zh'?'添加到我的演出':officialLang()==='ja'?'マイ公演に追加':'내 공연에 추가'}</button></div>`).join('');
+ cards.innerHTML=official.map((x,i)=>`<div class="official-card"><div><strong>${esc(localized(x,'title')||(officialLang()==='ja'?'タイトルなし':officialLang()==='zh'?'无标题':'제목 없음'))}</strong><span>📅 ${esc(x.date)} ${esc(x.time||'')} · ${esc(localized(x,'place')||(officialLang()==='ja'?'会場未登録':officialLang()==='zh'?'未填写地点':'장소 미등록'))}</span></div><button type="button" class="btn small" data-firebase-pick="${i}">${officialLang()==='zh'?'添加到我的演出':officialLang()==='ja'?'マイ公演に追加':'내 공연에 추가'}</button></div>`).join('');
 }
 document.addEventListener('xia-language-changed',()=>{renderOfficialCards();if(official.length){status.textContent=officialLang()==='ja'?`公式カレンダーから${official.length}件の予定を読み込みました。公演を選んでください。`:officialLang()==='zh'?`已从官方日历读取${official.length}条日程，请选择演出。`:`공식 달력에서 ${official.length}개 일정을 찾았어요. 원하는 공연을 선택해 주세요.`;}});
 btn.addEventListener('click',async()=>{
