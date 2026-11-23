@@ -388,7 +388,7 @@ $('#tripList').addEventListener('click',e=>{const edit=e.target.closest('[data-t
 
 $('#backupBtn').addEventListener('click',()=>{const file=new Blob([JSON.stringify({app:'xia-fan-manager',version:1,savedAt:new Date().toISOString(),data:state},null,2)],{type:'application/json'});const u=URL.createObjectURL(file),a=document.createElement('a');a.href=u;a.download=`xia-fan-manager-backup-${new Date().toISOString().slice(0,10)}.json`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast('백업 파일을 저장했어요 ♡')});$('#restoreBtn').addEventListener('click',()=>$('#restoreFile').click());$('#restoreFile').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>2000000)throw Error('파일이 너무 큽니다.');const o=JSON.parse(await f.text());if(o.app!=='xia-fan-manager'||!o.data||!Array.isArray(o.data.shows))throw Error('XIA 매니저 백업 파일이 아니에요.');if(!confirm('현재 기기에 있는 기록을 백업 파일의 기록으로 교체할까요?'))return;state=normalize(o.data);selectedCheck='';selectedTravel='';save();display();toast('백업 기록을 불러왔어요 ♡')}catch(err){toast(err.message||'파일을 읽지 못했어요')}finally{e.target.value=''}});$('#eraseBtn').addEventListener('click',()=>{if(!confirm('모든 공연·체크리스트·여행 메모를 이 기기에서 삭제할까요? 복구하려면 백업 파일이 필요해요.'))return;if(!confirm('정말 전체 삭제할까요?'))return;state=structuredCloneSafe(defaults);selectedCheck='';selectedTravel='';save();display();activate('shows');toast('기록을 삭제했어요')});
 function normalizeEvents(json){let arr=Array.isArray(json)?json:Array.isArray(json?.events)?json.events:Array.isArray(json?.schedules)?json.schedules:Array.isArray(json?.data)?json.data:null;if(!arr)throw Error('지원하는 일정 배열을 찾지 못했어요.');return arr.map((o,i)=>{if(typeof o!=='object'||!o)return null;const title=cleanText(o.title||o.name||o.event||o.eventTitle);const raw=cleanText(o.date||o.startDate||o.start||o.eventDate);const date=raw.slice(0,10);return title&&/^\d{4}-\d{2}-\d{2}$/.test(date)&&dateKey(date)?{title,date,time:cleanText(o.time||o.startTime).slice(0,5),venue:cleanText(o.venue||o.place||o.location),id:'import-'+i}:null}).filter(Boolean).slice(0,300)}
-$('#loadEvents').addEventListener('click',async()=>{const src=cleanText($('#sourceUrl').value);const status=$('#sourceStatus'),p=$('#officialCards');p.replaceChildren();if(!/^https:\/\//i.test(src)){status.textContent='https://로 시작하는 JSON 주소를 입력해 주세요.';return}status.textContent='일정 데이터를 확인하고 있어요…';const btn=$('#loadEvents');btn.disabled=true;try{const r=await fetch(src,{mode:'cors',credentials:'omit'});if(!r.ok)throw Error(`서버 응답 ${r.status}`);const type=r.headers.get('content-type')||'';if(!type.includes('json')&&!src.toLowerCase().split('?')[0].endsWith('.json'))throw Error('JSON 파일이 아닌 것 같아요.');const list=normalizeEvents(await r.json());if(!list.length)throw Error('가져올 수 있는 일정이 없어요.');status.textContent=`${list.length}개 일정을 찾았어요. 내 공연에 추가할 일정을 선택해 주세요.`;list.sort((a,b)=>a.date.localeCompare(b.date));p.innerHTML=list.map((o,i)=>`<div class="official-card"><div><strong>${escapeHtml(o.title)}</strong><span>📅 ${escapeHtml(fmtDate(o.date))} ${escapeHtml(o.time)} ${escapeHtml(o.venue)}</span></div><button type="button" class="btn small" data-import="${i}">+ 추가</button></div>`).join('');p._events=list}catch(err){status.textContent=`자동 읽기에 실패했어요: ${err.message}. 기존 달력의 실제 일정 파일 형식을 확인해야 해요.`}finally{btn.disabled=false}});document.addEventListener('xia-official-pick',e=>{const item=e.detail;if(!item)return;const found=state.shows.find(x=>x.sourceId===item.sourceId);if(found){toast('이미 등록한 일정이에요.');return}showModal({title:item.title,date:item.date,time:item.time,venue:item.venue});$('#showMemo').value=window.xiaPlannerLanguage==='ja'?'公式カレンダーから読み込み':window.xiaPlannerLanguage==='zh'?'从官方日历导入':'공식 일정 달력에서 가져옴';$('#showForm').dataset.sourceId=item.sourceId||'';toast('좌석·티켓 정보를 입력한 뒤 저장하세요 ♡')});
+$('#loadEvents').addEventListener('click',async()=>{const src=cleanText($('#sourceUrl').value);const status=$('#sourceStatus'),p=$('#officialCards');p.replaceChildren();if(!/^https:\/\//i.test(src)){status.textContent='https://로 시작하는 JSON 주소를 입력해 주세요.';return}status.textContent='일정 데이터를 확인하고 있어요…';const btn=$('#loadEvents');btn.disabled=true;try{const r=await fetch(src,{mode:'cors',credentials:'omit'});if(!r.ok)throw Error(`서버 응답 ${r.status}`);const type=r.headers.get('content-type')||'';if(!type.includes('json')&&!src.toLowerCase().split('?')[0].endsWith('.json'))throw Error('JSON 파일이 아닌 것 같아요.');const list=normalizeEvents(await r.json());if(!list.length)throw Error('가져올 수 있는 일정이 없어요.');status.textContent=`${list.length}개 일정을 찾았어요. 내 공연에 추가할 일정을 선택해 주세요.`;list.sort((a,b)=>a.date.localeCompare(b.date));p.innerHTML=list.map((o,i)=>`<div class="official-card"><div><strong>${escapeHtml(o.title)}</strong><span>📅 ${escapeHtml(fmtDate(o.date))} ${escapeHtml(o.time)} ${escapeHtml(o.venue)}</span></div><button type="button" class="btn small" data-import="${i}">+ 추가</button></div>`).join('');p._events=list}catch(err){status.textContent=`자동 읽기에 실패했어요: ${err.message}. 기존 달력의 실제 일정 파일 형식을 확인해야 해요.`}finally{btn.disabled=false}});document.addEventListener('xia-official-pick',e=>{const item=e.detail;if(!item)return;const found=state.shows.find(x=>x.sourceId===item.sourceId);if(found){toast('이미 등록한 일정이에요.');return}showModal({title:item.title,date:item.date,time:item.time,venue:item.venue});$('#showMemo').value=window.xiaPlannerLanguage==='ja'?'公式カレンダーから読み込み':window.xiaPlannerLanguage==='zh'?'从官方日历导入':'공식 일정 달력에서 가져옴';$('#showForm').dataset.sourceId=item.sourceId||'';toast(window.xiaPlannerLanguage==='ja'?'座席・チケット情報を入力してから保存してください ♡':window.xiaPlannerLanguage==='zh'?'请填写座位和门票信息后保存 ♡':'좌석·티켓 정보를 입력한 뒤 저장하세요 ♡')});
 $('#officialCards').addEventListener('click',e=>{const b=e.target.closest('[data-import]');if(!b)return;const p=$('#officialCards'),item=p._events?.[Number(b.dataset.import)];if(!item)return;showModal({title:item.title,date:item.date,time:item.time,venue:item.venue});toast('확인 후 공연 저장을 눌러주세요')});
 display();
 })();
@@ -753,5 +753,39 @@ if(memo){function refreshMemo(){if(['공식 일정 달력에서 가져옴','公�
 .xia-file-trigger{white-space:nowrap}
 @media(max-width:480px){.xia-file-control{align-items:flex-start;flex-direction:column}.xia-file-trigger{min-height:38px}}
 </style>
-<div id="xia-build-version" aria-label="Build version" style="text-align:center;padding:12px;color:#947b91;font-size:11px">XIA Fan Planner · v41</div>
+<style>
+#showTime.xia-native-time{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+.xia-time-picker{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;width:100%}
+.xia-time-picker select{min-width:0;flex:1 1 0;width:0;padding:12px 4px;border:1px solid #ead5e8;border-radius:12px;background:white;color:#49384a;font:inherit;text-align:center}
+.xia-time-picker select:first-child{flex:1.4 1 0}
+.xia-time-colon{flex:none;color:#806d82}
+@media(max-width:480px){.xia-time-picker{gap:3px}.xia-time-picker select{padding:11px 1px;font-size:14px}}
+</style>
+<script id="xia-time-locale-fix">
+(()=>{
+ const input=document.getElementById('showTime');if(!input)return;
+ input.classList.add('xia-native-time');input.setAttribute('tabindex','-1');
+ const picker=document.createElement('div');picker.className='xia-time-picker';picker.setAttribute('role','group');
+ const period=document.createElement('select'),hour=document.createElement('select'),minute=document.createElement('select');
+ period.setAttribute('aria-label','AM/PM');hour.setAttribute('aria-label','Hour');minute.setAttribute('aria-label','Minute');
+ for(let h=1;h<=12;h++)hour.add(new Option(String(h).padStart(2,'0'),String(h)));
+ for(let m=0;m<60;m++)minute.add(new Option(String(m).padStart(2,'0'),String(m)));
+ const colon=document.createElement('span');colon.className='xia-time-colon';colon.textContent=':';
+ picker.append(period,hour,colon,minute);input.after(picker);
+ const language=()=>window.xiaPlannerLanguage||'ko';
+ function setPeriodLabels(){const labels={ko:['오전','오후'],ja:['午前','午後'],zh:['上午','下午']}[language()]||['AM','PM'];const v=period.value;period.replaceChildren(new Option(labels[0],'am'),new Option(labels[1],'pm'));period.value=v||'am';}
+ function fromNative(){const value=input.value||'';const match=/^(\d{1,2}):(\d{2})/.exec(value);if(!match){period.value='am';hour.value='12';minute.value='0';return;}const h=Number(match[1]);period.value=h>=12?'pm':'am';hour.value=String(h%12||12);minute.value=String(Number(match[2]));}
+ function toNative(){let h=Number(hour.value)%12;if(period.value==='pm')h+=12;input.value=String(h).padStart(2,'0')+':'+String(minute.value).padStart(2,'0');input.dispatchEvent(new Event('change',{bubbles:true}));}
+ [period,hour,minute].forEach(el=>el.addEventListener('change',toNative));
+ setPeriodLabels();fromNative();
+ document.addEventListener('xia-language-changed',()=>{setPeriodLabels();});
+ const modal=document.getElementById('showModal');
+ if(modal){new MutationObserver(()=>{if(!modal.hidden)requestAnimationFrame(fromNative);}).observe(modal,{attributes:true,attributeFilter:['hidden']});}
+ document.getElementById('addShow')?.addEventListener('click',()=>requestAnimationFrame(fromNative));
+ document.getElementById('firebaseOfficialCards')?.addEventListener('click',()=>setTimeout(fromNative,0));
+ document.getElementById('showCards')?.addEventListener('click',()=>setTimeout(fromNative,0));
+ document.getElementById('showForm')?.addEventListener('submit',toNative,true);
+})();
+</script>
+<div id="xia-build-version" aria-label="Build version" style="text-align:center;padding:12px;color:#947b91;font-size:11px">XIA Fan Planner · v42</div>
 </body></html>
