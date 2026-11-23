@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#fbf0fa" />
+<title>XIA 덕질 매니저 | 나만의 덕질 플래너</title>
+<style>
+:root{--pink:#d94c96;--pink-d:#ae3073;--lilac:#a879cb;--ink:#392d40;--muted:#827588;--line:#f0e4ef;--shadow:0 12px 34px rgba(95,46,91,.09);--white:#fff;--bg:#fdf9fd}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:linear-gradient(140deg,#fff7fb,#f8f6ff 47%,#fffafd);color:var(--ink);min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #d7a0df;outline-offset:2px}.wrap{max-width:1080px;margin:auto;padding:0 20px}.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 92% 20%,rgba(250,190,229,.75),transparent 36%),linear-gradient(116deg,#f7d8ef,#efe3fb 65%,#fceaf5);border-bottom:1px solid #e9d2ea}.hero:before{content:"♡";position:absolute;font-size:270px;font-weight:100;color:#fff8;right:2%;top:-130px;transform:rotate(-18deg);pointer-events:none}.heroin{position:relative;padding:39px 0 38px}.eyebrow{font-size:12px;letter-spacing:.16em;color:#a65087;font-weight:800}.hero h1{margin:9px 0;font-size:clamp(30px,5vw,48px);font-weight:900;letter-spacing:-.055em}.hero h1 span{color:var(--pink)}.subtitle{margin:0;color:#80627e;font-size:15px}.hero-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.btn{border:1px solid #ebd6e7;background:#fff;color:var(--pink-d);border-radius:13px;padding:11px 15px;font-weight:750;min-height:43px;box-shadow:none}.btn.primary{background:linear-gradient(105deg,#d74f9d,#b95aac);color:white;border:0}.btn.ghost{background:#fff9ffba}.btn.danger{color:#9f4561;border-color:#f5d0d8}.btn.small{padding:7px 10px;min-height:34px;border-radius:10px;font-size:12px}.btn:disabled{opacity:.5;cursor:not-allowed}.main{padding-top:25px;padding-bottom:65px}.note{background:#fff;border:1px solid #f2e4ed;border-radius:15px;padding:12px 16px;color:#7e637d;font-size:13px;line-height:1.6}.topstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:19px 0 23px}.stat{background:#fff;border:1px solid var(--line);border-radius:19px;padding:17px 18px;box-shadow:var(--shadow)}.stat .num{font-size:26px;font-weight:900;color:#cc4f95;font-variant-numeric:tabular-nums}.stat .lab{font-size:13px;color:var(--muted);margin-top:4px}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:7px;background:#f2e7f2;border-radius:17px;margin-bottom:23px}.tab{border:0;background:transparent;padding:13px 9px;border-radius:12px;color:#856d83;font-weight:850}.tab.active{background:#fff;color:#b13883;box-shadow:0 3px 15px #a06b941f}.pane{display:none}.pane.active{display:block}.sectionhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:14px 0 18px}.sectionhead h2{margin:0;font-size:23px;letter-spacing:-.05em}.sectionhead p{margin:5px 0 0;font-size:13px;color:var(--muted);line-height:1.6}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{border:1px solid #f0dfed;background:white;border-radius:20px;padding:18px;box-shadow:var(--shadow)}.cardhead{display:flex;justify-content:space-between;gap:9px;align-items:flex-start}.card h3{margin:0 0 8px;font-size:19px}.dday{white-space:nowrap;background:#fae7f1;color:#c33c88;font-weight:900;border-radius:999px;padding:7px 10px;font-size:13px}.detail{margin:7px 0;color:#746977;font-size:14px;line-height:1.5;overflow-wrap:anywhere}.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}.empty{text-align:center;background:white;border:1px dashed #e6c9df;border-radius:22px;padding:42px 15px;color:#8c7c8a}.empty .emoji{font-size:36px;margin-bottom:10px}.empty strong{display:block;color:#574759;margin-bottom:9px}.empty p{margin:0;font-size:14px;line-height:1.65}.cols{display:grid;grid-template-columns:260px 1fr;gap:17px}.panel{background:white;border:1px solid var(--line);padding:19px;border-radius:19px;box-shadow:var(--shadow)}.panel h3{margin:0 0 12px;font-size:18px}.field{margin:0 0 14px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px;color:#66586b}.field input,.field select,.field textarea{border:1px solid #eadbe8;border-radius:11px;background:white;padding:11px 12px;width:100%;color:#443749;min-height:43px}.field textarea{min-height:95px;resize:vertical;line-height:1.55}.hint{font-size:12px;color:var(--muted);line-height:1.65}.progress{height:10px;background:#f5eaf1;border-radius:30px;overflow:hidden;margin:13px 0 17px}.progress > div{height:100%;background:linear-gradient(90deg,#e45aa7,#ba86d6);border-radius:30px}.checkcat{margin:12px 0 9px;font-weight:850;font-size:15px}.checkitem{display:flex;align-items:center;gap:10px;padding:10px 5px;border-bottom:1px solid #f7eff6}.checkitem input{width:19px;height:19px;accent-color:#d75da1;flex:0 0 auto}.checkitem .itemtext{flex:1;min-width:0;overflow-wrap:anywhere}.checkitem.checked .itemtext{text-decoration:line-through;color:#a397a4}.checkitem button{border:0;background:transparent;color:#bda2bb;font-size:23px;padding:0 6px}.inlineform{display:flex;gap:8px;margin-top:16px}.inlineform input{flex:1;min-width:0;border:1px solid #eadbe8;padding:11px;border-radius:11px}.soft{background:#fcf7fc;border:1px solid #f2e1f0;padding:13px;border-radius:13px;color:#766779;font-size:13px;line-height:1.7}.rowbetween{display:flex;justify-content:space-between;align-items:center;gap:12px}.past{color:#9d8b9c}.foot{border-top:1px solid #f0e0eb;padding:24px 0;color:#918293;font-size:12px;text-align:center;line-height:1.8}.foot button{background:none;border:0;text-decoration:underline;color:#9e4082;font-size:12px}.modal[hidden],.toast[hidden]{display:none}.modal{position:fixed;inset:0;z-index:10;background:#302137ad;display:flex;align-items:center;justify-content:center;padding:14px}.modalbox{background:white;border-radius:22px;width:min(100%,570px);max-height:min(90vh,780px);overflow:auto;padding:23px}.modalbox h2{margin:0 0 17px}.close{border:0;background:#f8edf6;border-radius:50%;font-size:21px;width:35px;height:35px}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.formgrid .full{grid-column:1/-1}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#4e3756;color:white;padding:12px 20px;border-radius:14px;z-index:20;box-shadow:0 8px 28px #0003;max-width:92vw;text-align:center;font-size:13px}.hidden{display:none!important}.formrow{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}.tag{background:#f7ebf5;border-radius:6px;color:#ac4d8d;font-size:11px;font-weight:800;padding:5px 7px}.importbox{margin-top:17px}.summary{font-weight:850;color:#aa3e84}.switches{display:flex;gap:7px;flex-wrap:wrap}.switch{border:1px solid #f0dce9;background:#fff;border-radius:100px;padding:8px 13px;color:#8e6886;font-weight:750;font-size:13px}.switch.active{background:#d85ca1;border-color:#d85ca1;color:white}.official-info{margin:15px 0}.minihead{margin:0 0 10px;color:#765a77;font-size:14px}.official-card{padding:12px 4px;border-bottom:1px solid #f3e6f0;display:flex;align-items:center;justify-content:space-between;gap:10px}.official-card strong{display:block}.official-card span{font-size:12px;color:#826e81}.official-cards{max-height:370px;overflow:auto}.nodata{font-size:13px;color:#8a7385;line-height:1.6}.backupbar{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}a{text-decoration:none}@media(max-width:760px){.hero:before{font-size:200px;top:-70px}.heroin{padding:30px 0}.wrap{padding:0 14px}.hero h1{font-size:33px}.topstats{gap:7px}.stat{padding:14px 11px}.stat .num{font-size:24px}.stat .lab{font-size:11px}.tab{font-size:12px;padding:12px 2px;letter-spacing:-.035em}.cards,.cols{grid-template-columns:1fr}.sectionhead h2{font-size:21px}.card{padding:16px}.formgrid{grid-template-columns:1fr}.formgrid .full{grid-column:auto}}@media(prefers-reduced-motion:no-preference){.tab,.btn,.card{transition:transform .15s ease,box-shadow .15s ease}.btn:hover,.tab:hover{transform:translateY(-1px)}}
+
+.hero{min-height:255px;isolation:isolate}
+.hero:before{z-index:-1}
+.hero-banner{position:absolute;inset:0;z-index:-2;background-position:center;background-size:cover;background-repeat:no-repeat}
+.hero-banner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,246,252,.91),rgba(255,241,252,.66) 62%,rgba(250,232,252,.22))}
+.banner-editor{position:fixed;inset:0;z-index:100;background:#281d2bc9;display:flex;align-items:center;justify-content:center;padding:12px}
+.banner-editor[hidden]{display:none}
+.banner-panel{width:min(100%,640px);max-height:94dvh;overflow:auto;background:white;border-radius:22px;padding:20px;box-shadow:0 20px 70px #0003}
+.banner-panel h2{margin:0 0 8px;font-size:22px}
+.banner-preview{position:relative;aspect-ratio:3/1;background:linear-gradient(120deg,#f6d5eb,#e8dcfa);overflow:hidden;border:2px solid #f1d6e9;border-radius:16px;touch-action:none;cursor:grab}
+.banner-preview:active{cursor:grabbing}
+.banner-preview canvas{width:100%;height:100%;display:block}
+.banner-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.banner-grid label{display:block;font-size:13px;font-weight:700}
+.banner-grid input{width:100%;accent-color:#cf4b9a}
+.banner-editor .btn{margin:3px}
+.banner-tip{font-size:12px;color:#857488;line-height:1.6}
+@media(max-width:560px){.banner-grid{grid-template-columns:1fr}.banner-panel{padding:15px}}
+
+.crop-stage{background:#fdf6fb;border:1px solid #eac8dd;border-radius:15px;padding:10px;margin:12px 0}
+.crop-stage[hidden]{display:none}.crop-stage canvas{display:block;width:100%;height:auto;touch-action:none;border-radius:9px;background:#28232b;cursor:crosshair}
+.crop-stage .crop-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:9px}.crop-stage .crop-actions small{flex:1;min-width:170px;color:#746775}
+
+/* Original three-phone mockup inspired mobile layout */
+:root{--pink:#f72c8d;--pink-d:#bd146d;--lilac:#a873d8;--bg:#fff3fa}
+body{background:linear-gradient(150deg,#ffedf8,#f9eaff 56%,#fff7fc)}
+.hero{min-height:245px;background:radial-gradient(circle at 8% 15%,#d19ef2a8,transparent 35%),radial-gradient(circle at 90% 10%,#e3a0f9a6,transparent 37%),linear-gradient(115deg,#43326f,#6b3b91 52%,#b95fb2);color:white}
+.hero:before{color:#ffb9e4a8;font-size:185px;right:2%;top:-50px}
+.hero-banner{z-index:0;inset:0 auto 0 0;width:44%;background-size:cover;background-position:center}
+.hero-banner:after{background:linear-gradient(90deg,transparent 55%,#60367e 100%)}
+.heroin{z-index:1;min-height:245px;padding-left:clamp(160px,34%,365px);display:flex;flex-direction:column;justify-content:center}
+.hero .eyebrow{color:#ffe2fa;font-size:clamp(11px,1.5vw,17px);letter-spacing:.02em}
+.hero h1{font-size:clamp(28px,5vw,56px);color:white;text-shadow:0 2px 12px #512663}
+.hero h1 span{color:#ff9fd6}
+.hero .subtitle{color:#ffe6f7;font-weight:650}
+.hero .btn.ghost{background:#fff9ffed}
+.hero-actions{gap:6px;margin-top:14px}
+.hero-actions .btn{font-size:12px;padding:8px 10px;min-height:36px}
+.note{font-size:12px;padding:9px 13px}
+.topstats{gap:7px;margin:12px 0 18px}
+.stat{padding:9px 12px;border-radius:14px;box-shadow:0 3px 12px #bc78b41c}
+.stat .num{font-size:19px}
+.stat .lab{font-size:11px;margin-top:1px}
+.tabs{background:#fff;border:1px solid #f8d6e9;box-shadow:0 4px 16px #b879ad2e}
+.tab{font-size:15px}
+.tab.active{background:linear-gradient(130deg,#ff5ba7,#ed2185);color:white;box-shadow:0 5px 13px #e5388a45}
+.switch.active{background:linear-gradient(120deg,#ff5ba7,#ed2185);border-color:transparent}
+.sectionhead h2{color:#ad1665}
+.card{border:1px solid #f6d7e7;box-shadow:0 4px 16px #ac6d9e23}
+.cards{grid-template-columns:1fr}
+.showfilters{margin:0 0 15px}
+.showcard{display:flex;gap:13px;align-items:flex-start;padding:13px}
+.poster{width:92px;min-width:92px;aspect-ratio:3/4;border-radius:13px;overflow:hidden;background:linear-gradient(155deg,#7549a3,#ed8fbd);display:flex;align-items:center;justify-content:center;color:#fff;font-size:35px;position:relative}
+.poster img{width:100%;height:100%;object-fit:cover}
+.poster .dday{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);background:#f72c8d;color:white;padding:4px 10px;font-size:11px}
+.showbody{flex:1;min-width:0}
+.showbody h3{font-size:17px;margin:0 0 8px}
+.showbody .detail{margin:4px 0;font-size:13px}
+.showbody .actions{margin-top:9px}
+.traveltabs{margin-bottom:14px}
+.trip-field{display:none}
+.trip-field.active{display:block}
+#travelForm .formrow{margin-top:15px}
+@media(max-width:760px){
+.hero{min-height:190px}.heroin{min-height:190px;padding:18px 14px 18px 37%}
+.hero h1{font-size:clamp(24px,6vw,34px);line-height:1.13}
+.hero .subtitle{font-size:11px}
+.hero .eyebrow{font-size:10px}
+.hero-banner{width:42%}
+.hero-actions{margin-top:10px;gap:5px}
+.hero-actions .btn{font-size:10px;min-height:30px;padding:6px 7px}
+.hero-actions .btn:not(#editBannerBtn){display:none}
+.stat{padding:8px 5px;text-align:center}
+.stat .num{font-size:18px}
+.stat .lab{font-size:10px}
+.tab{font-size:12px}
+.showcard{padding:10px;gap:10px}
+.poster{width:80px;min-width:80px}
+.showbody h3{font-size:15px}
+.showbody .detail{font-size:12px}
+.showbody .actions .btn{font-size:11px}
+}
+
+/* v7: Real layered banner (not a flattened promotional image) */
+.hero{min-height:0!important;position:relative;overflow:hidden;color:#fff;background:
+ radial-gradient(circle at 7% 12%,#f7a6e0a0 0 2%,transparent 12%),
+ radial-gradient(circle at 84% 2%,#d47aff90,transparent 27%),
+ radial-gradient(circle at 43% 84%,#bd74d987,transparent 38%),
+ linear-gradient(110deg,#322252 0%,#4c2777 43%,#75329c 74%,#5c277e 100%)!important}
+.hero:before{content:""!important;position:absolute;inset:0;top:0!important;right:0!important;transform:none!important;font-size:0!important;pointer-events:none;background:
+ radial-gradient(circle at 4% 23%,#ffe9ffb9 0 5px,transparent 22px),
+ radial-gradient(circle at 28% 10%,#ffb0e78c 0 3px,transparent 23px),
+ radial-gradient(circle at 71% 79%,#ffcaefb5 0 4px,transparent 24px),
+ radial-gradient(circle at 92% 14%,#fff4ffc2 0 3px,transparent 20px)}
+.hero:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(118deg,transparent 0 78px,#fff1 80px,transparent 85px);opacity:.3}
+.hero-glow{position:absolute;filter:blur(35px);border-radius:50%;pointer-events:none}
+.hero-glow-one{width:180px;height:160px;background:#fbc2f060;left:-65px;top:-30px}
+.hero-glow-two{width:240px;height:140px;background:#a86cf184;right:10%;bottom:-70px}
+.hero-layout{min-height:286px;display:grid;grid-template-columns:minmax(150px,25%) minmax(270px,1fr) minmax(170px,25%);align-items:center;gap:14px;position:relative;z-index:1;padding-top:16px;padding-bottom:16px}
+.hero-portrait{height:260px;align-self:end;position:relative;overflow:hidden;border-radius:4px}
+.hero-banner{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:2!important;background-size:cover!important;background-position:center center!important;background-repeat:no-repeat!important;filter:drop-shadow(0 3px 10px #1e153f4d)}
+.hero-banner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,#492a74a6 100%),linear-gradient(0deg,#4323659e,transparent 35%);pointer-events:none}
+.portrait-placeholder{position:absolute;inset:18px 5px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px dashed #ffe2f887;border-radius:18px;color:#fbe3f7;text-align:center}
+.portrait-placeholder span{font-size:65px;line-height:1}.portrait-placeholder small{font-size:12px;line-height:1.5}
+.portrait-sign{position:absolute;bottom:10px;left:8px;z-index:3;transform:rotate(-9deg);font-size:18px;font-style:italic;font-weight:650;text-shadow:0 2px 9px #24123b}
+.portrait-sign span{display:block;font-size:12px;font-weight:500}
+.hero-copy{position:relative;z-index:4;min-width:0;padding:4px 0 12px}
+.brand-line{display:flex;align-items:center;gap:12px;font-size:clamp(19px,2.5vw,34px);font-weight:850;text-shadow:0 3px 6px #271347b3;white-space:nowrap}
+.hero-crown{font-size:clamp(35px,5vw,60px);color:#ffe39b;font-weight:400;line-height:.9;transform:rotate(-12deg);display:inline-block}
+.hero-copy h1{font-size:clamp(33px,4.3vw,60px)!important;line-height:1.13;white-space:nowrap;margin:4px 0 14px!important;letter-spacing:-.065em;color:#ff9dd4!important;text-shadow:0 3px 0 #af337f,0 0 16px #f879d87a}
+.hero-copy h1 span{color:#fff3fa!important;font-weight:500}
+.hero-brush{display:flex;flex-direction:column;align-items:center;gap:3px;width:max-content;max-width:100%;padding:10px 24px 12px;transform:rotate(-2deg);color:#432341;background:#f9d8f4;border-radius:40% 7% 42% 8% / 24% 43% 24% 35%;box-shadow:12px 0 0 #f9d8f488,-9px 3px 0 #f9d8f470}
+.hero-brush strong{font-size:clamp(13px,1.7vw,20px);white-space:nowrap}
+.hero-brush span{font-size:clamp(11px,1.4vw,15px);white-space:nowrap;font-weight:650}
+.hero-brush b{color:#d21e7d}
+.hero-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px!important}
+.hero-actions .btn{min-height:33px!important;padding:7px 9px!important;font-size:11px!important;background:#fff2fbeb!important;color:#7b246d!important;text-decoration:none;box-shadow:0 2px 10px #28163b4d}
+.hero-sticker{align-self:start;margin-top:22px;transform:rotate(-6deg);background:linear-gradient(145deg,#fff3fe,#e8c6f5);color:#342044;border-radius:17px;padding:13px 11px;box-shadow:0 9px 17px #22113461;font-size:clamp(10px,1.25vw,14px);font-weight:850;position:relative;z-index:3}
+.sticker-row{display:flex;align-items:center;gap:5px;padding:7px 0;white-space:nowrap;border-bottom:1px solid #9f72b544}
+.sticker-row:last-child{border:0}.sticker-row span{font-size:19px;color:#f32490}
+.hero-plane{position:absolute;right:0;bottom:38px;font-size:65px;line-height:1;transform:rotate(-20deg);text-shadow:0 5px 12px #301c4a;z-index:2;color:#fff3fa}
+.hero-trail{position:absolute;right:58px;bottom:16px;color:#ffe3fa;font-size:22px;letter-spacing:6px;opacity:.8;transform:rotate(-7deg)}
+@media(max-width:800px){
+ .hero-layout{min-height:215px;grid-template-columns:29% 1fr;gap:8px;padding:12px 13px}
+ .hero-portrait{height:205px}.hero-copy{padding:4px 0 0}
+ .brand-line{font-size:clamp(15px,3.5vw,24px);gap:5px}
+ .hero-crown{font-size:clamp(30px,6vw,44px)}
+ .hero-copy h1{font-size:clamp(26px,5.7vw,43px)!important;margin:2px 0 9px!important}
+ .hero-brush{padding:7px 12px}.hero-brush strong{font-size:clamp(10px,2.4vw,15px)}.hero-brush span{font-size:clamp(9px,2vw,13px)}
+ .hero-sticker{display:none}.hero-plane{right:5px;bottom:6px;font-size:32px;opacity:.5}.hero-trail{display:none}
+ .hero-actions{margin-top:12px!important}
+ .hero-actions .btn{font-size:10px!important;padding:6px!important}
+ .hero-actions .official-link{display:none}
+}
+@media(max-width:430px){
+ .hero-layout{min-height:185px;grid-template-columns:33% 1fr;padding:9px 10px}
+ .hero-portrait{height:177px}.portrait-placeholder small{font-size:9px}.portrait-sign{font-size:13px}.portrait-sign span{font-size:10px}
+ .brand-line{font-size:15px;gap:4px}.hero-crown{font-size:31px}
+ .hero-copy h1{font-size:clamp(23px,6.5vw,30px)!important;letter-spacing:-.07em}
+ .hero-brush{padding:7px 6px;box-shadow:none}.hero-brush strong{font-size:11px}.hero-brush span{font-size:9px}
+ .hero-actions .btn{font-size:9px!important;padding:6px 5px!important}
+ .hero-actions #backupBtn,.hero-actions #restoreBtn{display:none}
+}
+</style>
+<style>.flight-direction-tabs{display:flex;gap:8px;margin:12px 0 15px}.flight-direction-tabs[hidden]{display:none}.direction-choice{border:1px solid #e6b5d9;border-radius:12px;background:#fff4fb;color:#8c4079;padding:11px 17px;font-size:15px;font-weight:800;cursor:pointer;flex:1}.direction-choice.active{background:#e942a1;color:white;border-color:#e942a1;box-shadow:0 3px 10px #e942a133}.trip-add{display:block;margin:10px 0 20px;width:100%;max-width:300px}.trip-shell{max-width:940px;margin:auto}.trip-shell>.field{max-width:550px;margin-bottom:16px}.trip-list{display:grid;gap:10px;margin:16px 0 20px}.trip-card{display:flex;justify-content:space-between;gap:12px;align-items:start;background:#fff9fe;border:1px solid #f3d9ec;border-radius:14px;padding:14px}.trip-card strong{color:#77205c}.trip-card p{margin:5px 0;font-size:13px;color:#69566a;overflow-wrap:anywhere}.trip-card-actions{display:flex;gap:5px;flex-shrink:0}#travelForm{border-top:1px solid #efd8e9;padding-top:16px}#travelForm h3{margin:0 0 12px}#tripFields .field{min-width:0}#tripFields input,#tripFields select,#tripFields textarea{width:100%;box-sizing:border-box}@media(max-width:520px){.trip-card{flex-direction:column}.trip-card-actions{align-self:flex-end}.traveltabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}</style><style>.route-step{border:1px solid #f0d0e8;border-radius:14px;padding:13px;margin:10px 0;background:#fffafd}.route-step-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.route-step-top button{border:1px solid #eac6df;background:white;border-radius:7px;padding:6px 10px;color:#79325f;margin-left:5px}.route-step-top button:disabled{opacity:.35}.route-preview{margin:10px 0;padding-left:24px;font-size:13px;line-height:1.9;color:#61445c}#routeSegments[hidden]{display:none}</style><style>.trip-card-main{min-width:0;flex:1}.trip-detail{margin-top:11px;border-top:1px solid #efd9e8;padding-top:10px}.trip-detail summary{cursor:pointer;color:#a02d79;font-weight:750;padding:6px 0}.trip-detail dl{display:grid;grid-template-columns:minmax(95px,33%) 1fr;gap:8px 12px;margin:10px 0}.trip-detail dt{font-size:12px;color:#856a7d}.trip-detail dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap;font-size:13px}.trip-detail a{overflow-wrap:anywhere}.trip-card-actions{align-self:start}#travelForm[hidden]{display:none}</style></head>
+<body>
+<header class="hero">
+  <div class="hero-glow hero-glow-one"></div><div class="hero-glow hero-glow-two"></div>
+  <div class="hero-layout wrap">
+    <div class="hero-portrait">
+      <div class="hero-banner" id="heroBanner"></div>
+      <div class="portrait-placeholder"><span>♡</span><small>내가 좋아하는<br>준수 사진을 넣어주세요</small></div>
+      <div class="portrait-sign">XIA <span>Kim Junsu ♡</span></div>
+    </div>
+    <div class="hero-copy">
+      <div class="brand-line"><span class="hero-crown">♕</span><span>XIA 김준수</span></div>
+      <h1>덕질 매니저 <span>♡</span></h1>
+      <div class="hero-brush"><strong>공연 · 준비 · 여행까지</strong><span>한 번에 관리하는 <b>나만의 덕질 플래너!</b></span></div>
+      <div class="hero-actions">
+        <button type="button" class="btn ghost" id="editBannerBtn">✦ 왼쪽 사진 꾸미기</button>
+        <a class="btn ghost official-link" target="_blank" rel="noopener" href="#" data-calendar-link="1">♡ 공식 일정 달력</a><button type="button" class="btn ghost" id="backupBtn">내 기록 백업</button>
+        <button type="button" class="btn ghost" id="restoreBtn">백업 불러오기</button>
+      <input hidden type="file" id="restoreFile" accept="application/json,.json"></div>
+    </div>
+    <div class="hero-sticker"><div class="sticker-row"><span>☑</span> 내 공연 & 티켓 관리</div><div class="sticker-row"><span>☑</span> 맞춤형 체크리스트</div><div class="sticker-row"><span>☑</span> 덕질 여행 플래너</div></div>
+    <div class="hero-plane" aria-hidden="true">✈</div>
+    <div class="hero-trail" aria-hidden="true">♡ · · · ♡ · · ·</div>
+  </div>
+</header>
+<main class="wrap main">
+<div class="note">💗 이 매니저에 입력한 공연·좌석·여행 정보는 <strong>현재 사용하는 브라우저에만 저장</strong>돼요. GitHub에 개인 정보가 올라가지 않아요. 휴대폰을 바꾸거나 브라우저 데이터를 삭제하기 전에는 꼭 <strong>내 기록 백업</strong>을 해주세요. 공식 일정 불러오기는 인터넷 연결과 달력 데이터의 공개 읽기 권한이 필요해요.</div>
+<section class="topstats" aria-label="요약"><div class="stat"><div class="num" id="countShow">0</div><div class="lab">내 공연</div></div><div class="stat"><div class="num" id="countTodo">0</div><div class="lab">남은 준비 항목</div></div><div class="stat"><div class="num" id="nextDday">—</div><div class="lab">가장 가까운 공연</div></div></section>
+<nav class="tabs" role="tablist" aria-label="덕질 매니저 메뉴"><button class="tab active" role="tab" aria-selected="true" data-tab="shows" type="button">🎟️ 내 공연·티켓</button><button class="tab" role="tab" aria-selected="false" data-tab="checklist" type="button">✅ 체크리스트</button><button class="tab" role="tab" aria-selected="false" data-tab="travel" type="button">✈️ 여행 플래너</button></nav>
+<section class="pane active" id="pane-shows" role="tabpanel"><div class="sectionhead"><div><h2>🎟️ 나의 공연 & 티켓 관리</h2><p>내가 가는 공연을 등록하고 D-DAY와 티켓 정보를 관리해요.</p></div><button class="btn primary" type="button" id="addShow">+ 공연 등록</button></div><div class="switches showfilters" aria-label="공연 목록 필터"><button class="switch active" data-filter="all" type="button">전체</button><button class="switch" data-filter="upcoming" type="button">예정</button><button class="switch" data-filter="completed" type="button">관람완료</button></div><div id="showCards" class="cards"></div><div class="panel importbox"><h3>📅 XIA 공식 일정 연동</h3><p class="hint">공식 일정 달력과 동일한 Firebase 일정 데이터를 읽어옵니다. 가져올 공연을 선택하면 내 공연 등록창이 열려요. 개인 좌석·예약 정보는 이 기기에만 저장됩니다.</p><div class="backupbar"><button type="button" class="btn primary" id="connectOfficial">♡ 공식 일정 불러오기</button></div><p id="firebaseImportStatus" class="hint" aria-live="polite">버튼을 누르면 연결 결과가 여기에 표시됩니다.</p><div id="firebaseOfficialCards" class="official-cards"></div><div class="backupbar"><a class="btn small" href="#" data-calendar-link="1" target="_blank" rel="noopener">공식 달력 열기</a></div><div class="field"><label for="calendarUrl">공식 달력 주소 (한 번만 입력)</label><input id="calendarUrl" type="url" placeholder="https://...github.io/.../" autocomplete="off"/><button type="button" class="btn small" id="saveCalendarUrl">주소 저장</button><p class="hint" id="calendarUrlStatus">기존 링크는 404 오류가 발생했습니다. 정상 작동하는 달력 주소를 입력해야 합니다.</p></div><details class="official-info" hidden><summary>일정 JSON 주소로 가져오기 (선택)</summary><p class="hint">기존 공식 달력에서 JSON 일정 파일을 공개하고 있다면 주소를 넣어 후보 일정을 가져올 수 있어요. HTML 또는 JS 파일은 지원하지 않아요. 가져오기 전 내용을 확인하고 선택할 수 있어요.</p><div class="field"><label for="sourceUrl">공식 일정 JSON 주소</label><input id="sourceUrl" type="url" placeholder="https://.../events.json" autocomplete="off" /></div><button class="btn small" type="button" id="loadEvents">일정 읽기</button><p id="sourceStatus" class="hint" aria-live="polite"></p><div id="officialCards" class="official-cards"></div></details></div></section>
+<section class="pane" id="pane-checklist" role="tabpanel"><div class="sectionhead"><div><h2>나만의 준비 체크리스트</h2><p>공연별로 티켓팅·여행 계획·짐 싸기·기타 할 일을 구분해서 관리해요.</p></div></div><div class="cols"><aside class="panel"><div class="field"><label for="checkShowSelect">어느 공연을 준비할까요?</label><select id="checkShowSelect"></select></div><div class="soft">🌷 공연 준비 · 여행 준비 · 챙길 물건 · 기타를 따로 관리해요. 체크한 내용은 자동 저장돼요.</div><div class="progress" aria-label="준비 진행률"><div id="checkProgress" style="width:0%"></div></div><p id="checkPct" class="summary">0% 준비 완료</p></aside><section class="panel"><div class="switches" id="categoryButtons"><button class="switch active" type="button" data-cat="공연">🎫 공연 준비</button><button class="switch" type="button" data-cat="여행">✈️ 여행 준비</button><button class="switch" type="button" data-cat="물건">🧳 챙길 물건</button><button class="switch" type="button" data-cat="기타">📝 기타</button></div><div id="checkItems"></div><form id="checkAddForm" class="inlineform"><input id="checkNewText" maxlength="120" placeholder="준비할 항목 직접 추가" aria-label="준비할 항목"><button class="btn primary small" type="submit">+ 추가</button></form></section></div></section>
+<section class="pane" id="pane-travel" role="tabpanel">
+<div class="sectionhead"><div><h2>덕질 여행 플래너 ✈️</h2><p>공연별로 항공권·숙소·이동·일정을 정리해요. 금액은 선택 입력이에요.</p></div></div>
+<div class="panel trip-shell"><div class="field"><label for="travelShowSelect">여행할 공연 선택</label><select id="travelShowSelect"></select></div>
+<div class="switches traveltabs" id="tripTabs">
+<button class="switch active" type="button" data-triptab="flight">✈️ 항공권</button><button class="switch" type="button" data-triptab="hotel">🏨 숙소</button><button class="switch" type="button" data-triptab="transport">🚆 교통</button><button class="switch" type="button" data-triptab="memo">📅 일정/메모</button></div>
+<div id="flightDirectionTabs" class="flight-direction-tabs"><button type="button" class="direction-choice active" data-direction="가는 편">🛫 가는 편</button><button type="button" class="direction-choice" data-direction="오는 편">🛬 오는 편</button></div>
+<div id="tripList" class="trip-list"></div>
+<button type="button" id="addTripEntry" class="btn primary trip-add">+ 항목 추가</button>
+<form id="travelForm" novalidate><h3 id="tripFormTitle">항공권 추가</h3><input type="hidden" id="tripEditId">
+<div id="tripFields" class="formgrid"></div><div id="routeSegments" hidden></div>
+<div class="formrow"><span class="hint" id="travelSaved">입력 내용은 이 기기에 저장돼요.</span><button type="button" class="btn" id="tripCancel" hidden>수정 취소</button><button class="btn primary" id="tripSaveBtn" type="submit">+ 항목 저장</button></div></form>
+</div></section>
+<footer class="foot">Made with ♡ for XIA · 나만의 덕질 라이프<br>개인 기록은 이 기기에만 보관됩니다. <button type="button" id="eraseBtn">내 기기의 모든 기록 삭제</button></footer>
+</main>
+<div class="modal" id="showModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden><div class="modalbox"><div class="rowbetween"><h2 id="modalTitle">공연 등록 ♡</h2><button type="button" class="close" id="modalClose" aria-label="닫기">×</button></div><form id="showForm"><input type="hidden" id="showId"><div class="formgrid"><div class="field full"><label for="showTitle">공연명 *</label><input id="showTitle" required maxlength="150" placeholder="예: JX 콘서트 CORE"></div><div class="field"><label for="showDate">공연 날짜 *</label><input id="showDate" type="date" required></div><div class="field"><label for="showTime">시작 시간</label><input id="showTime" type="time"></div><div class="field full"><label for="showVenue">장소</label><input id="showVenue" maxlength="180" placeholder="예: 잠실 핸드볼 경기장"></div><div class="field"><label for="showSeat">좌석·구역</label><input id="showSeat" maxlength="120" placeholder="예: R구역 5열"></div><div class="field"><label for="showTicket">예매처·티켓 메모</label><input id="showTicket" maxlength="160" placeholder="예: 놀티켓, 현장 수령"></div><div class="field full"><label for="showPoster">공연 포스터 사진 (선택)</label><input id="showPoster" type="file" accept="image/*"><p class="hint">작은 카드 이미지로 저장돼요. 새 사진을 선택하지 않으면 기존 사진을 유지합니다.</p></div><div class="field full"><label for="showMemo">기타 메모</label><textarea id="showMemo" maxlength="2000" placeholder="입장 시간, 준비할 것 등"></textarea></div></div><div class="formrow"><button type="button" class="btn" id="formCancel">취소</button><button type="submit" class="btn primary">공연 저장</button></div></form></div></div>
+<div class="toast" id="toast" role="status" hidden></div>
+<script>
+(()=>{'use strict';
+const KEY='xia-fan-manager-v1';
+const defaults={shows:[],checks:{},trips:{}};
+let state=load(),activeTab='shows',activeCategory='공연',selectedCheck='',selectedTravel='',showFilter='all',tripTab='flight';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function cleanText(v){return String(v??'').trim()}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function load(){try{let d=JSON.parse(localStorage.getItem(KEY));return normalize(d)}catch{return structuredCloneSafe(defaults)}}
+function structuredCloneSafe(o){return JSON.parse(JSON.stringify(o))}
+function normalize(d){if(!d||typeof d!=='object')return structuredCloneSafe(defaults);return {shows:Array.isArray(d.shows)?d.shows.filter(x=>x&&typeof x==='object').slice(0,1000):[],checks:d.checks&&typeof d.checks==='object'&&!Array.isArray(d.checks)?d.checks:{},trips:d.trips&&typeof d.trips==='object'&&!Array.isArray(d.trips)?d.trips:{}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{toast('저장 공간이 부족해요. 백업해 주세요.')}}
+let toastHandle;function toast(t){const e=$('#toast');e.textContent=t;e.hidden=false;clearTimeout(toastHandle);toastHandle=setTimeout(()=>e.hidden=true,3000)}
+function dateKey(d){const a=new Date(d+'T00:00:00');return Number.isNaN(a.getTime())?null:a}
+function dday(date){const start=dateKey(date);if(!start)return '날짜 확인';const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());const n=Math.round((start-today)/86400000);return n===0?'D-DAY':n>0?`D-${n}`:`D+${-n}`}
+function daysUntil(date){const d=dateKey(date);if(!d)return 99999;const n=new Date();return Math.round((d-new Date(n.getFullYear(),n.getMonth(),n.getDate()))/86400000)}
+function fmtDate(s){if(!/^\d{4}-\d{2}-\d{2}$/.test(s||''))return cleanText(s);const a=dateKey(s);return a?`${a.getFullYear()}.${String(a.getMonth()+1).padStart(2,'0')}.${String(a.getDate()).padStart(2,'0')} (${['일','월','화','수','목','금','토'][a.getDay()]})`:s}
+function sortShows(){return [...state.shows].sort((a,b)=>(a.date||'').localeCompare(b.date||'')||(a.title||'').localeCompare(b.title||''))}
+function checkList(id){if(!Array.isArray(state.checks[id]))state.checks[id]=[];return state.checks[id]}
+function tripData(id){if(!state.trips[id]||typeof state.trips[id]!=='object')state.trips[id]={};return state.trips[id]}
+function initChecks(id){if(!id||Object.prototype.hasOwnProperty.call(state.checks,id))return;state.checks[id]=[
+ ...['팬클럽 가입 / 선예매 자격 확인','선예매 신청 / 인증','예매처 회원가입 / 본인 인증','선예매 날짜·시간 확인','좌석 배치도 확인','티켓팅 완료','결제 및 예매 내역 확인','티켓 배송 / 현장 수령 확인','공연 입장 및 본인 확인 규정 확인','MD 사전예약 / 구매 신청'].map(text=>({id:uid(),cat:'공연',text,done:false})),
+ ...['항공권 / 기차표 예약','숙소 예약','공항·역 ↔ 숙소 이동 경로 확인','숙소 ↔ 공연장 이동 경로 확인','교통카드 / 교통패스 준비','로밍 / eSIM 준비 (해외)','여행 일정 최종 확인'].map(text=>({id:uid(),cat:'여행',text,done:false})),
+ ...['공연 티켓 / 신분증','응원봉 / 슬로건','휴대폰 / 충전기 / 보조배터리','촬영 장비 / 망원렌즈 (허용 시)','여권 / 지갑 / 현금','의류 / 속옷 / 잠옷','세면도구 / 화장품','상비약 / 개인 복용약','캐리어 / 여행용 가방'].map(text=>({id:uid(),cat:'물건',text,done:false}))
+ ];save()}
+// v14: move old default packing items without deleting user checks or completed states.
+function migrateCheckCategories(){let changed=false;const packing=new Set(['응원봉 / 응원도구 준비','보조배터리 충전 완료','휴대폰 저장 공간 확보','신분증 / 여권 준비']);for(const arr of Object.values(state.checks)){if(!Array.isArray(arr))continue;for(const x of arr){if(!x||typeof x!=='object')continue;if(packing.has(x.text)&&(x.cat==='공연'||x.cat==='여행')){x.cat='물건';changed=true}}}if(changed)save()}
+migrateCheckCategories();
+function uid(){return typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():'id-'+Date.now()+'-'+Math.random().toString(36).slice(2)}
+function display(){const sorted=sortShows();$('#countShow').textContent=state.shows.length;let todo=0;Object.values(state.checks).forEach(a=>{if(Array.isArray(a))todo+=a.filter(i=>i&&!i.done).length});$('#countTodo').textContent=todo;const future=sorted.filter(x=>daysUntil(x.date)>=0);$('#nextDday').textContent=future.length?dday(future[0].date):'—';renderShows();renderSelects();renderChecks();renderTrip()}
+function renderShows(){
+ const p=$('#showCards');let arr=sortShows();
+ if(showFilter==='upcoming')arr=arr.filter(x=>daysUntil(x.date)>=0);
+ if(showFilter==='completed')arr=arr.filter(x=>daysUntil(x.date)<0);
+ if(!arr.length){p.innerHTML='<div class="empty"><div class="emoji">🎟️</div><strong>표시할 공연이 없어요</strong><p>공연을 등록하면 여기에 나타나요 ♡</p></div>';return}
+ p.innerHTML=arr.map(s=>`<article class="card showcard"><div class="poster">${s.poster?`<img src="${escapeHtml(s.poster)}" alt="공연 포스터">`:'🎤'}<span class="dday">${escapeHtml(dday(s.date))}</span></div><div class="showbody"><h3>${escapeHtml(s.title)}</h3><div class="detail">📅 ${escapeHtml(fmtDate(s.date))}${s.time?' · '+escapeHtml(s.time):''}</div>${s.venue?`<div class="detail">📍 ${escapeHtml(s.venue)}</div>`:''}${s.seat?`<div class="detail">🎫 좌석 ${escapeHtml(s.seat)}</div>`:''}${s.ticket?`<div class="detail">💗 ${escapeHtml(s.ticket)}</div>`:''}${s.memo?`<div class="detail">📝 ${escapeHtml(s.memo)}</div>`:''}<div class="actions"><button class="btn small" data-action="edit" data-id="${escapeHtml(s.id)}">수정</button><button class="btn small" data-action="check" data-id="${escapeHtml(s.id)}">준비물</button><button class="btn small" data-action="trip" data-id="${escapeHtml(s.id)}">여행</button><button class="btn danger small" data-action="del" data-id="${escapeHtml(s.id)}">삭제</button></div></div></article>`).join('')
+}
+function renderSelects(){const ids=state.shows.map(x=>x.id);if(!ids.includes(selectedCheck))selectedCheck=ids[0]||'';if(!ids.includes(selectedTravel)&&selectedTravel!=='__general__')selectedTravel=ids[0]||'__general__';const opts=sortShows().map(s=>`<option value="${escapeHtml(s.id)}">${escapeHtml(fmtDate(s.date))} · ${escapeHtml(s.title)}</option>`).join('');[['#checkShowSelect',selectedCheck],['#travelShowSelect',selectedTravel]].forEach(([sel,id])=>{const el=$(sel);el.innerHTML=(sel==='#travelShowSelect'?'<option value="__general__">공연 미지정 · 자유 여행</option>':'')+(opts|| (sel==='#travelShowSelect'?'':'<option value="">먼저 공연을 등록해 주세요</option>'));el.value=id})}
+function renderChecks(){const el=$('#checkItems'),form=$('#checkAddForm');form.querySelector('input').disabled=!selectedCheck;form.querySelector('button').disabled=!selectedCheck;if(!selectedCheck){el.innerHTML='<div class="empty"><div class="emoji">✅</div><strong>먼저 공연을 등록해주세요</strong><p>공연마다 나만의 준비 항목이 생겨요.</p></div>';$('#checkProgress').style.width='0%';$('#checkPct').textContent='0% 준비 완료';return}initChecks(selectedCheck);const arr=checkList(selectedCheck),items=arr.filter(x=>x.cat===activeCategory),done=arr.filter(x=>x.done).length,total=arr.length,percent=total?Math.round(done/total*100):0;$('#checkProgress').style.width=percent+'%';$('#checkPct').textContent=`${percent}% 준비 완료 (${done}/${total})`;el.innerHTML=`<div class="checkcat">${escapeHtml(activeCategory)} 항목</div>`+(items.length?items.map(x=>`<label class="checkitem ${x.done?'checked':''}"><input type="checkbox" data-cid="${escapeHtml(x.id)}" ${x.done?'checked':''}><span class="itemtext">${escapeHtml(x.text)}</span><button type="button" title="항목 삭제" aria-label="항목 삭제" data-remove="${escapeHtml(x.id)}">×</button></label>`).join(''):'<p class="nodata">아직 이 분류의 항목이 없어요. 아래에서 추가해 보세요.</p>')}
+
+const tripSchemas={
+ flight:[['airline','항공사','text','예: 대한항공'],['flightNo','편명','text','예: KE703'],['departDate','출발 날짜','date',''],['departTime','출발 시간','time',''],['from','출발 공항','text','예: 인천 ICN'],['arriveDate','도착 날짜','date',''],['arriveTime','도착 시간','time',''],['to','도착 공항','text','예: 도쿄 HND'],['seat','좌석','text','예: 25A'],['terminal','터미널','text','예: 제2터미널'],['reservation','예약번호','text',''],['baggageIncluded','위탁 수하물 유무','select','미입력|있음|없음'],['carryKg','기내 수하물 (kg)','number','예: 10'],['checkedKg','위탁 수하물 (kg)','number','예: 23'],['cost','금액 (선택)','text','예: 250,000원'],['note','메모','textarea','']],
+ hotel:[['name','숙소 이름','text','예: 호텔 이름'],['area','위치 / 지역','text','예: 오사카 벤텐초'],['address','상세 주소','text',''],['phone','전화번호','tel',''],['checkin','체크인 날짜','date',''],['nights','숙박 일수','number','예: 2'],['checkout','체크아웃 날짜 (자동 계산)','date',''],['reservation','예약번호','text',''],['cost','금액 (선택)','text',''],['note','메모','textarea','']],
+ transport:[['method','교통수단','select','미입력|기차|지하철|버스|택시|도보|렌터카|기타'],['date','이동 날짜','date',''],['from','출발지','text','예: 공항'],['to','도착지','text','예: 호텔'],['departTime','출발 시간','time',''],['arriveTime','도착 시간','time',''],['line','노선 / 열차·버스 번호','text','예: KTX 123, 2호선'],['seat','좌석 / 호차','text','예: 5호차 13A'],['reservation','예약번호','text',''],['cost','요금 (선택)','text',''],['map','지도 링크 (선택)','url','https://'],['note','메모 / 환승·출구 정보','textarea','']],
+ memo:[['date','날짜','date',''],['time','시간','time',''],['title','일정 제목','text','예: 공연장 도착'],['place','장소','text',''],['note','내용 / 메모','textarea','']]
+};
+const tripLabels={flight:'항공권',hotel:'숙소',transport:'교통',memo:'일정/메모'};
+function tripItems(){const d=selectedTravel?tripData(selectedTravel):{};if(!d.entries||typeof d.entries!=='object')d.entries={};for(const k of Object.keys(tripSchemas))if(!Array.isArray(d.entries[k]))d.entries[k]=[];return d.entries}
+function tripFieldHtml([key,label,type,placeholder],v=''){const value=escapeHtml(v);let control=type==='textarea'?`<textarea data-trip-key="${key}" rows="3" placeholder="${escapeHtml(placeholder)}">${value}</textarea>`:type==='select'?`<select data-trip-key="${key}">${placeholder.split('|').map(x=>`<option value="${escapeHtml(x)}" ${x===v?'selected':''}>${escapeHtml(x)}</option>`).join('')}</select>`:`<input data-trip-key="${key}" type="${type}" value="${value}" ${type==='number'?'min="1" max="365"':''} placeholder="${escapeHtml(placeholder)}">`;return `<div class="field ${type==='textarea'||key==='address'||key==='note'?'full':''}"><label>${escapeHtml(label)}</label>${control}</div>`}
+
+let editingRouteSegments=[];
+const segmentFields=[['method','교통수단','select','지하철|버스|기차|택시|도보|렌터카|기타'],['line','노선 / 버스번호','text','예: 2호선 또는 6002번'],['from','승차역 / 출발지','text',''],['to','하차역 / 도착지','text',''],['time','출발 시간 (선택)','time',''],['duration','소요 시간 (선택)','text','예: 15분'],['cost','요금 (선택)','text','예: 230엔'],['note','환승·출구 메모 (선택)','text','예: 3번 출구']];
+function renderRouteSegments(){
+ const box=$('#routeSegments');box.hidden=tripTab!=='transport';if(box.hidden)return;
+ box.innerHTML=`<h3>환승 / 이동 구간</h3><p class="hint">버스 → 지하철 → 도보처럼 구간을 원하는 만큼 추가하고 순서를 바꿀 수 있어요.</p><div class="route-steps">${editingRouteSegments.map((seg,i)=>`<div class="route-step" data-segment-index="${i}"><div class="route-step-top"><strong>${i+1}구간</strong><div><button type="button" data-seg-move="up" data-i="${i}" ${i===0?'disabled':''}>↑</button><button type="button" data-seg-move="down" data-i="${i}" ${i===editingRouteSegments.length-1?'disabled':''}>↓</button><button type="button" data-seg-remove="${i}">삭제</button></div></div><div class="formgrid">${segmentFields.map(f=>tripFieldHtml(f,seg[f[0]]||'').replaceAll('data-trip-key','data-seg-key')).join('')}</div></div>`).join('')}</div><button type="button" class="btn primary" id="addRouteSegment">+ 환승 / 이동 구간 추가</button>`;
+}
+function readRouteSegments(){if(tripTab!=='transport')return;$$('.route-step').forEach((step,i)=>{const obj={};step.querySelectorAll('[data-seg-key]').forEach(el=>obj[el.dataset.segKey]=el.value);editingRouteSegments[i]=obj})}
+$('#routeSegments').addEventListener('click',e=>{
+ if(e.target.id==='addRouteSegment'){readRouteSegments();editingRouteSegments.push({method:'지하철'});renderRouteSegments();return}
+ const del=e.target.closest('[data-seg-remove]'),move=e.target.closest('[data-seg-move]');if(!del&&!move)return;readRouteSegments();
+ if(del){editingRouteSegments.splice(Number(del.dataset.segRemove),1)}
+ else {const i=Number(move.dataset.i),j=i+(move.dataset.segMove==='up'?-1:1);if(j<0||j>=editingRouteSegments.length)return;[editingRouteSegments[i],editingRouteSegments[j]]=[editingRouteSegments[j],editingRouteSegments[i]]}
+ renderRouteSegments()
+});
+function currentDirection(){return document.querySelector('.direction-choice.active')?.dataset.direction||'가는 편'}
+function renderTripForm(item=null){$('#tripFormTitle').textContent=(tripTab==='flight'?currentDirection()+' 항공권':tripLabels[tripTab])+(item?' 수정':' 추가');$('#tripEditId').value=item?.id||'';$('#tripFields').innerHTML=tripSchemas[tripTab].map(f=>tripFieldHtml(f,item?.[f[0]]||'')).join('');$('#tripSaveBtn').textContent=item?'수정 저장':'+ 항목 저장';$('#tripCancel').hidden=!item;editingRouteSegments=tripTab==='transport'?(item?.segments?.map(x=>({...x}))||[]):[];renderRouteSegments();$('#travelForm').querySelectorAll('input,textarea,select,button').forEach(el=>{if(el.id!=='tripCancel')el.disabled=false});if(tripTab==='hotel'){const check=$('#tripFields [data-trip-key="checkin"]'),nights=$('#tripFields [data-trip-key="nights"]'),checkout=$('#tripFields [data-trip-key="checkout"]');const calc=()=>{if(check.value&&Number(nights.value)>0){const d=new Date(check.value+'T12:00:00');d.setDate(d.getDate()+Number(nights.value));checkout.value=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}};check.addEventListener('change',calc);nights.addEventListener('input',calc)}}
+function tripItemTitle(k,x){return k==='flight'?`${x.direction||'항공편'} · ${x.from||'출발지'} → ${x.to||'도착지'}`:k==='hotel'?(x.name||'숙소'):k==='transport'?`${x.method&&x.method!=='미입력'?x.method+' · ':''}${x.from||'출발지'} → ${x.to||'도착지'}`:(x.title||'일정')}
+function tripDetailHtml(kind,x){
+ const fields=tripSchemas[kind].filter(([key])=>x[key]!==undefined&&String(x[key]).trim()!=='');
+ const rows=fields.map(([key,label])=>{const val=String(x[key]);const content=key==='map'&&/^https:\/\//i.test(val)?`<a href="${escapeHtml(val)}" target="_blank" rel="noopener noreferrer">지도 링크 열기</a>`:escapeHtml(val);return `<dt>${escapeHtml(label)}</dt><dd>${content}</dd>`}).join('');
+ const segs=kind==='transport'&&Array.isArray(x.segments)&&x.segments.length?`<dt>환승 상세</dt><dd><ol class="route-preview">${x.segments.map(seg=>`<li>${escapeHtml([seg.method,seg.line,seg.from&&seg.to?seg.from+' → '+seg.to:'',seg.duration,seg.note].filter(Boolean).join(' · '))}</li>`).join('')}</ol></dd>`:'';
+ const direction=kind==='flight'?`<dt>구분</dt><dd>${escapeHtml(x.direction||'가는 편')}</dd>`:'';
+ return `<details class="trip-detail"><summary>상세 정보 펼쳐보기</summary><dl>${direction}${rows}${segs}</dl></details>`;
+}
+function renderTrip(){document.querySelector('#flightDirectionTabs').hidden=tripTab!=='flight';document.querySelector('#addTripEntry').textContent=tripTab==='hotel'?'+ 숙소 추가':tripTab==='flight'?'+ 항공편 추가':tripTab==='transport'?'+ 이동 경로 추가':'+ 일정 추가';const items=selectedTravel?tripItems()[tripTab].filter(x=>tripTab!=='flight'||(x.direction||'가는 편')===currentDirection()).sort((a,b)=>tripTab==='hotel'?(a.checkin||'').localeCompare(b.checkin||''):0):[];$('#tripList').innerHTML=selectedTravel?(items.length?items.map(x=>`<article class="trip-card"><div class="trip-card-main"><strong>${escapeHtml(tripItemTitle(tripTab,x))}</strong><p>${escapeHtml([x.departDate||x.checkin||x.date,x.departTime||x.time,x.airline||x.area||x.method,x.departTime||x.time||'',x.nights?x.nights+'박':'',x.cost].filter(Boolean).join(' · '))}</p>${tripDetailHtml(tripTab,x)}</div><div class="trip-card-actions"><button type="button" class="btn small" data-trip-edit="${escapeHtml(x.id)}">수정</button><button type="button" class="btn danger small" data-trip-delete="${escapeHtml(x.id)}">삭제</button></div></article>`).join(''):'<div class="soft">아직 등록한 항목이 없어요. 아래에서 추가해 보세요 ♡</div>'):'<div class="soft">먼저 공연을 등록하면 여행 정보를 저장할 수 있어요.</div>';renderTripForm();$('#travelForm').hidden=true;$('#travelSaved').textContent=selectedTravel?`${items.length}개 등록됨 · 저장하면 위 목록에 카드가 추가돼요.`:'먼저 공연을 등록해 주세요.'}
+function setTripTab(k){tripTab=k;$$('[data-triptab]').forEach(b=>b.classList.toggle('active',b.dataset.triptab===k));renderTrip()}
+function activate(tab){activeTab=tab;$$('.tab').forEach(b=>{let active=b.dataset.tab===tab;b.classList.toggle('active',active);b.setAttribute('aria-selected',active?'true':'false')});$$('.pane').forEach(x=>x.classList.toggle('active',x.id==='pane-'+tab));if(tab==='checklist')renderChecks();if(tab==='travel')renderTrip();window.scrollTo({top:0,behavior:'smooth'})}
+function showModal(s){$('#showForm').reset();$('#showForm').dataset.sourceId=s?.sourceId||'';$('#showId').value=s?.id||'';$('#modalTitle').textContent=s?.id?'공연 수정 ♡':'공연 등록 ♡';if(s){['Title','Date','Time','Venue','Seat','Ticket','Memo'].forEach(key=>$('#show'+key).value=s[key.toLowerCase()]||'')}$('#showModal').hidden=false;$('#showTitle').focus()}
+function closeModal(){$('#showModal').hidden=true}
+$$('.tab').forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab)));
+$('#addShow').addEventListener('click',()=>showModal(null));$('#modalClose').addEventListener('click',closeModal);$('#formCancel').addEventListener('click',closeModal);$('#showModal').addEventListener('click',e=>{if(e.target===$('#showModal'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#showModal').hidden)closeModal()});
+$('#showForm').addEventListener('submit',async e=>{e.preventDefault();const id=$('#showId').value||uid();const record={id,sourceId:$('#showForm').dataset.sourceId||'',title:cleanText($('#showTitle').value),date:$('#showDate').value,time:$('#showTime').value,venue:cleanText($('#showVenue').value),seat:cleanText($('#showSeat').value),ticket:cleanText($('#showTicket').value),memo:cleanText($('#showMemo').value)};if(!record.title||!dateKey(record.date)){toast('공연명과 날짜를 확인해 주세요.');return}const ix=state.shows.findIndex(s=>s.id===id);const oldPoster=ix>=0?state.shows[ix].poster:'';if(ix>=0&&!record.sourceId)record.sourceId=state.shows[ix].sourceId||'';record.poster=oldPoster||'';const pf=$('#showPoster').files?.[0];if(pf){try{const im=await createImageBitmap(pf),c=document.createElement('canvas');const ratio=Math.min(1,360/Math.max(im.width,im.height));c.width=Math.max(1,Math.round(im.width*ratio));c.height=Math.max(1,Math.round(im.height*ratio));c.getContext('2d').drawImage(im,0,0,c.width,c.height);record.poster=c.toDataURL('image/jpeg',.7)}catch{toast('포스터 이미지를 읽지 못했어요.')}}if(ix>=0)state.shows[ix]=record;else{state.shows.push(record);initChecks(id)}save();closeModal();display();toast('공연을 저장했어요 ♡')});
+$$('[data-filter]').forEach(b=>b.addEventListener('click',()=>{showFilter=b.dataset.filter;$$('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));renderShows()}));
+$('#showCards').addEventListener('click',e=>{const b=e.target.closest('button[data-action]');if(!b)return;const id=b.dataset.id,s=state.shows.find(x=>x.id===id);if(!s)return;switch(b.dataset.action){case 'edit':showModal(s);break;case 'del':if(confirm(`‘${s.title}’ 공연과 관련 체크리스트·여행 메모까지 삭제할까요?`)){state.shows=state.shows.filter(x=>x.id!==id);delete state.checks[id];delete state.trips[id];save();display();toast('공연을 삭제했어요')}break;case 'check':selectedCheck=id;activate('checklist');renderSelects();renderChecks();break;case 'trip':selectedTravel=id;activate('travel');renderSelects();renderTrip();break}});
+$('#checkShowSelect').addEventListener('change',e=>{selectedCheck=e.target.value;renderChecks()});$('#travelShowSelect').addEventListener('change',e=>{selectedTravel=e.target.value;renderTrip()});$$('.switch[data-cat]').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.cat;$$('.switch[data-cat]').forEach(x=>x.classList.toggle('active',x===b));renderChecks()}));
+$('#checkItems').addEventListener('change',e=>{if(!e.target.matches('[data-cid]'))return;const x=checkList(selectedCheck).find(x=>x.id===e.target.dataset.cid);if(x){x.done=e.target.checked;save();display()}});$('#checkItems').addEventListener('click',e=>{const b=e.target.closest('[data-remove]');if(!b)return;if(!confirm('이 준비 항목을 삭제할까요?'))return;state.checks[selectedCheck]=checkList(selectedCheck).filter(x=>x.id!==b.dataset.remove);save();display()});$('#checkAddForm').addEventListener('submit',e=>{e.preventDefault();if(!selectedCheck)return;const t=cleanText($('#checkNewText').value);if(!t)return;checkList(selectedCheck).push({id:uid(),cat:activeCategory,text:t,done:false});$('#checkNewText').value='';save();display()});
+$$('[data-triptab]').forEach(b=>b.addEventListener('click',()=>setTripTab(b.dataset.triptab)));
+$$('[data-direction]').forEach(b=>b.addEventListener('click',()=>{$$('[data-direction]').forEach(x=>x.classList.toggle('active',x===b));renderTrip()}));
+$('#addTripEntry').addEventListener('click',()=>{renderTripForm();$('#travelForm').hidden=false;$('#travelForm').scrollIntoView({behavior:'smooth',block:'center'});$('#tripFields input, #tripFields select, #tripFields textarea')?.focus()});
+function saveTravelEntry(e){
+ if(e)e.preventDefault();
+ try{
+  const selected=$('#travelShowSelect').value||selectedTravel||'__general__';
+  selectedTravel=selected;
+  const kind=tripTab, obj={id:$('#tripEditId').value||uid()};
+  if(kind==='flight')obj.direction=currentDirection();
+  if(kind==='transport'){readRouteSegments();obj.segments=editingRouteSegments.map(x=>({...x}));}
+  $$('#tripFields [data-trip-key]').forEach(el=>{obj[el.dataset.tripKey]=cleanText(el.value)});
+  const data=tripData(selected);
+  if(!data.entries||typeof data.entries!=='object')data.entries={};
+  if(!Array.isArray(data.entries[kind]))data.entries[kind]=[];
+  const list=data.entries[kind],i=list.findIndex(x=>x.id===obj.id);
+  if(i>=0)list[i]=obj;else list.push(obj);
+  try{localStorage.setItem(KEY,JSON.stringify(state))}catch(err){toast('저장 공간 오류: '+err.message);return}
+  // Render the exact saved group; never depend on a stale select/filter.
+  $('#travelShowSelect').value=selected;
+  renderTrip();
+  if(!$$('#tripList .trip-card').length){
+   const saved=data.entries[kind];
+   $('#tripList').innerHTML=saved.map(x=>`<article class="trip-card"><div class="trip-card-main"><strong>${escapeHtml(tripItemTitle(kind,x))}</strong>${tripDetailHtml(kind,x)}</div><div class="trip-card-actions"><button type="button" class="btn small" data-trip-edit="${escapeHtml(x.id)}">수정</button><button type="button" class="btn danger small" data-trip-delete="${escapeHtml(x.id)}">삭제</button></div></article>`).join('');
+   $('#travelSaved').textContent=saved.length+'개 등록됨';
+  }
+  toast('저장했어요! 상단 카드를 확인해 주세요 ♡');
+  $('#tripList').scrollIntoView({behavior:'smooth',block:'center'});
+ }catch(err){console.error(err);toast('저장 오류: '+(err.message||err))}
+}
+$('#tripSaveBtn').type='button';
+$('#tripSaveBtn').addEventListener('click',saveTravelEntry);
+$('#travelForm').addEventListener('submit',saveTravelEntry);
+
+$('#tripCancel').addEventListener('click',()=>{renderTripForm();$('#travelForm').hidden=true});
+$('#tripList').addEventListener('click',e=>{const edit=e.target.closest('[data-trip-edit]'),del=e.target.closest('[data-trip-delete]');if(!edit&&!del)return;const id=(edit||del).dataset.tripEdit||(edit||del).dataset.tripDelete;const arr=tripItems()[tripTab],item=arr.find(x=>x.id===id);if(!item)return;if(edit){if(tripTab==='flight')$$('[data-direction]').forEach(b=>b.classList.toggle('active',b.dataset.direction===(item.direction||'가는 편')));renderTripForm(item);$('#travelForm').hidden=false;$('#travelForm').scrollIntoView({behavior:'smooth',block:'nearest'})}else if(confirm('이 항목을 삭제할까요?')){tripItems()[tripTab]=arr.filter(x=>x.id!==id);save();renderTrip();toast('항목을 삭제했어요')}});
+
+$('#backupBtn').addEventListener('click',()=>{const file=new Blob([JSON.stringify({app:'xia-fan-manager',version:1,savedAt:new Date().toISOString(),data:state},null,2)],{type:'application/json'});const u=URL.createObjectURL(file),a=document.createElement('a');a.href=u;a.download=`xia-fan-manager-backup-${new Date().toISOString().slice(0,10)}.json`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast('백업 파일을 저장했어요 ♡')});$('#restoreBtn').addEventListener('click',()=>$('#restoreFile').click());$('#restoreFile').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>2000000)throw Error('파일이 너무 큽니다.');const o=JSON.parse(await f.text());if(o.app!=='xia-fan-manager'||!o.data||!Array.isArray(o.data.shows))throw Error('XIA 매니저 백업 파일이 아니에요.');if(!confirm('현재 기기에 있는 기록을 백업 파일의 기록으로 교체할까요?'))return;state=normalize(o.data);selectedCheck='';selectedTravel='';save();display();toast('백업 기록을 불러왔어요 ♡')}catch(err){toast(err.message||'파일을 읽지 못했어요')}finally{e.target.value=''}});$('#eraseBtn').addEventListener('click',()=>{if(!confirm('모든 공연·체크리스트·여행 메모를 이 기기에서 삭제할까요? 복구하려면 백업 파일이 필요해요.'))return;if(!confirm('정말 전체 삭제할까요?'))return;state=structuredCloneSafe(defaults);selectedCheck='';selectedTravel='';save();display();activate('shows');toast('기록을 삭제했어요')});
+function normalizeEvents(json){let arr=Array.isArray(json)?json:Array.isArray(json?.events)?json.events:Array.isArray(json?.schedules)?json.schedules:Array.isArray(json?.data)?json.data:null;if(!arr)throw Error('지원하는 일정 배열을 찾지 못했어요.');return arr.map((o,i)=>{if(typeof o!=='object'||!o)return null;const title=cleanText(o.title||o.name||o.event||o.eventTitle);const raw=cleanText(o.date||o.startDate||o.start||o.eventDate);const date=raw.slice(0,10);return title&&/^\d{4}-\d{2}-\d{2}$/.test(date)&&dateKey(date)?{title,date,time:cleanText(o.time||o.startTime).slice(0,5),venue:cleanText(o.venue||o.place||o.location),id:'import-'+i}:null}).filter(Boolean).slice(0,300)}
+$('#loadEvents').addEventListener('click',async()=>{const src=cleanText($('#sourceUrl').value);const status=$('#sourceStatus'),p=$('#officialCards');p.replaceChildren();if(!/^https:\/\//i.test(src)){status.textContent='https://로 시작하는 JSON 주소를 입력해 주세요.';return}status.textContent='일정 데이터를 확인하고 있어요…';const btn=$('#loadEvents');btn.disabled=true;try{const r=await fetch(src,{mode:'cors',credentials:'omit'});if(!r.ok)throw Error(`서버 응답 ${r.status}`);const type=r.headers.get('content-type')||'';if(!type.includes('json')&&!src.toLowerCase().split('?')[0].endsWith('.json'))throw Error('JSON 파일이 아닌 것 같아요.');const list=normalizeEvents(await r.json());if(!list.length)throw Error('가져올 수 있는 일정이 없어요.');status.textContent=`${list.length}개 일정을 찾았어요. 내 공연에 추가할 일정을 선택해 주세요.`;list.sort((a,b)=>a.date.localeCompare(b.date));p.innerHTML=list.map((o,i)=>`<div class="official-card"><div><strong>${escapeHtml(o.title)}</strong><span>📅 ${escapeHtml(fmtDate(o.date))} ${escapeHtml(o.time)} ${escapeHtml(o.venue)}</span></div><button type="button" class="btn small" data-import="${i}">+ 추가</button></div>`).join('');p._events=list}catch(err){status.textContent=`자동 읽기에 실패했어요: ${err.message}. 기존 달력의 실제 일정 파일 형식을 확인해야 해요.`}finally{btn.disabled=false}});document.addEventListener('xia-official-pick',e=>{const item=e.detail;if(!item)return;const found=state.shows.find(x=>x.sourceId===item.sourceId);if(found){toast('이미 등록한 일정이에요.');return}showModal({title:item.title,date:item.date,time:item.time,venue:item.venue});$('#showMemo').value='공식 일정 달력에서 가져옴';$('#showForm').dataset.sourceId=item.sourceId||'';toast('좌석·티켓 정보를 입력한 뒤 저장하세요 ♡')});
+$('#officialCards').addEventListener('click',e=>{const b=e.target.closest('[data-import]');if(!b)return;const p=$('#officialCards'),item=p._events?.[Number(b.dataset.import)];if(!item)return;showModal({title:item.title,date:item.date,time:item.time,venue:item.venue});toast('확인 후 공연 저장을 눌러주세요')});
+display();
+})();
+</script>
+
+<div class="banner-editor" id="bannerEditor" hidden role="dialog" aria-modal="true" aria-labelledby="bannerTitle">
+  <div class="banner-panel">
+    <div class="rowbetween"><h2 id="bannerTitle">🖼️ 왼쪽 인물 사진 꾸미기</h2><button type="button" class="close" id="closeBanner" aria-label="닫기">×</button></div>
+    <p class="banner-tip">사진을 선택하면 네모 선택 영역이 계속 표시됩니다. 네모를 움직이거나 크기를 바꿀 때마다 아래 배너가 즉시 바뀝니다.</p>
+    <div class="field"><label for="bannerFile">왼쪽 인물 사진 선택</label><input id="bannerFile" type="file" accept="image/*"></div>
+    <div class="crop-stage" id="cropStage" hidden>
+      <strong>① 원하는 부분 선택 · 네모는 계속 유지돼요</strong>
+      <p class="banner-tip">네모 안쪽을 끌면 이동, 오른쪽 아래 분홍색 모서리를 끌면 크기를 조절해요.</p>
+      <canvas id="cropCanvas" width="900" height="560" aria-label="사진 자르기 영역"></canvas>
+      <div class="crop-actions"><small>네모를 옮기거나 모서리를 조절하면 아래 미리보기에 바로 반영돼요.</small></div>
+    </div>
+    <p class="banner-tip">② 네모를 유지한 채 아래에서 크기·위치·투명도를 조절하세요.</p>
+    <div class="banner-preview" id="bannerPreview"><canvas id="bannerCanvas" width="1200" height="400"></canvas></div>
+    <div class="banner-grid">
+      <label>사진 크기 <span id="zoomValue">100%</span><input type="range" id="bannerZoom" min="100" max="350" value="100"></label>
+      <label>투명도 <span id="opacityValue">70%</span><input type="range" id="bannerOpacity" min="0" max="100" value="70"></label>
+      <label>가로 위치 <input type="range" id="bannerX" min="0" max="100" value="50"></label>
+      <label>세로 위치 <input type="range" id="bannerY" min="0" max="100" value="50"></label>
+    </div>
+    <p class="banner-tip">배너는 이 브라우저에만 저장됩니다. 브라우저 데이터를 삭제하면 사라질 수 있어요. 사진은 용량을 줄여 저장합니다.</p>
+    <div class="formrow"><button class="btn" id="resetBanner" type="button">기본 배너</button><button class="btn" id="cancelBanner" type="button">취소</button><button class="btn primary" id="saveBanner" type="button">적용·저장 ♡</button></div>
+  </div>
+</div>
+<script>
+/* 개인 배너 편집: 기존 공연/여행/백업 데이터와 별도 저장 */
+(function(){
+const key='xia-fan-manager-personal-banner-v1';
+const $b=id=>document.getElementById(id);
+const dlg=$b('bannerEditor'),preview=$b('bannerPreview'),canvas=$b('bannerCanvas'),ctx=canvas.getContext('2d');
+const ids=['bannerZoom','bannerOpacity','bannerX','bannerY'];
+let photo=null, src='', drag=null;
+function settings(){return {zoom:+$b('bannerZoom').value,opacity:+$b('bannerOpacity').value,x:+$b('bannerX').value,y:+$b('bannerY').value}}
+function readSettings(o){$b('bannerZoom').value=o.zoom??100;$b('bannerOpacity').value=o.opacity??70;$b('bannerX').value=o.x??50;$b('bannerY').value=o.y??50}
+function loadImage(url){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=url})}
+function draw(){
+ const W=canvas.width,H=canvas.height;
+ ctx.clearRect(0,0,W,H);ctx.fillStyle='#f6d9ee';ctx.fillRect(0,0,W,H);
+ const o=settings();$b('zoomValue').textContent=o.zoom+'%';$b('opacityValue').textContent=o.opacity+'%';
+ if(!photo)return;
+ const base=Math.max(W/photo.width,H/photo.height),scale=base*o.zoom/100;
+ const w=photo.width*scale,h=photo.height*scale;
+ const x=(W-w)*o.x/100,y=(H-h)*o.y/100;
+ ctx.globalAlpha=o.opacity/100;ctx.drawImage(photo,x,y,w,h);ctx.globalAlpha=1;
+}
+function apply(url){$b('heroBanner').style.backgroundImage=url?`url("${url}")`:''}
+function open(){dlg.hidden=false;document.body.style.overflow='hidden';draw()}
+function close(){dlg.hidden=true;document.body.style.overflow=''}
+$b('editBannerBtn').addEventListener('click',open);
+$b('closeBanner').addEventListener('click',close);$b('cancelBanner').addEventListener('click',close);
+dlg.addEventListener('click',e=>{if(e.target===dlg)close()});
+ids.forEach(id=>$b(id).addEventListener('input',draw));
+
+const cropStage=$b('cropStage'), cropCanvas=$b('cropCanvas'),cc=cropCanvas.getContext('2d');
+let original=null, cropBox={x:180,y:90,w:540,h:340}, cropDrag=null;
+let imageFrame={x:0,y:0,w:0,h:0};
+function cropRender(){
+ const W=cropCanvas.width,H=cropCanvas.height;
+ cc.clearRect(0,0,W,H);cc.fillStyle='#28232b';cc.fillRect(0,0,W,H);
+ if(!original)return;
+ const k=Math.min(W/original.width,H/original.height),w=original.width*k,h=original.height*k;
+ const x=(W-w)/2,y=(H-h)/2;imageFrame={x,y,w,h};cc.drawImage(original,x,y,w,h);
+ cc.fillStyle='rgba(0,0,0,.52)';cc.fillRect(0,0,W,H);
+ cc.save();cc.beginPath();cc.rect(cropBox.x,cropBox.y,cropBox.w,cropBox.h);cc.clip();cc.drawImage(original,x,y,w,h);cc.restore();
+ cc.strokeStyle='#fff';cc.lineWidth=4;cc.strokeRect(cropBox.x,cropBox.y,cropBox.w,cropBox.h);
+ cc.strokeStyle='#dc459f';cc.lineWidth=3;cc.strokeRect(cropBox.x+2,cropBox.y+2,cropBox.w-4,cropBox.h-4);
+ cc.fillStyle='#e3449d';cc.fillRect(cropBox.x+cropBox.w-15,cropBox.y+cropBox.h-15,30,30);
+ cc.fillStyle='white';cc.font='bold 17px sans-serif';cc.fillText('↘',cropBox.x+cropBox.w-8,cropBox.y+cropBox.h+7);
+}
+function cropPoint(e){const r=cropCanvas.getBoundingClientRect();return{x:(e.clientX-r.left)*cropCanvas.width/r.width,y:(e.clientY-r.top)*cropCanvas.height/r.height}}
+function beginCrop(im){
+ original=im;cropStage.hidden=false;
+ const k=Math.min(900/im.width,560/im.height),w=im.width*k,h=im.height*k;
+ const x=(900-w)/2,y=(560-h)/2;
+ cropBox={x:x+w*.15,y:y+h*.12,w:w*.7,h:h*.76};cropRender();updateCropPreview();
+}
+// Capture file selection to display the cropping rectangle as soon as the image loads.
+$b('bannerFile').addEventListener('change',async e=>{
+ const f=e.target.files?.[0];if(!f||!f.type.startsWith('image/'))return;
+ const u=URL.createObjectURL(f);
+ try{const im=await loadImage(u);readSettings({zoom:100,opacity:70,x:50,y:50});beginCrop(im)}catch{}finally{URL.revokeObjectURL(u)}
+});
+cropCanvas.addEventListener('pointerdown',e=>{
+ if(!original)return;const p=cropPoint(e),b=cropBox;
+ const corner=Math.abs(p.x-(b.x+b.w))<45&&Math.abs(p.y-(b.y+b.h))<45;
+ const inside=p.x>=b.x&&p.x<=b.x+b.w&&p.y>=b.y&&p.y<=b.y+b.h;
+ if(!inside&&!corner)return;
+ cropDrag={mode:corner?'resize':'move',p,b:{...b}};cropCanvas.setPointerCapture(e.pointerId);
+});
+cropCanvas.addEventListener('pointermove',e=>{
+ if(!cropDrag)return;const p=cropPoint(e),dx=p.x-cropDrag.p.x,dy=p.y-cropDrag.p.y,b=cropDrag.b,f=imageFrame;
+ if(cropDrag.mode==='move'){
+ cropBox.x=Math.max(f.x,Math.min(f.x+f.w-b.w,b.x+dx));
+ cropBox.y=Math.max(f.y,Math.min(f.y+f.h-b.h,b.y+dy));
+ }else{
+ cropBox.w=Math.max(35,Math.min(f.x+f.w-b.x,b.w+dx));
+ cropBox.h=Math.max(35,Math.min(f.y+f.h-b.y,b.h+dy));
+ }cropRender();updateCropPreview();
+});
+cropCanvas.addEventListener('pointerup',()=>cropDrag=null);
+cropCanvas.addEventListener('pointercancel',()=>cropDrag=null);
+function updateCropPreview(){
+ if(!original)return;
+ const f=imageFrame,b=cropBox;
+ const sx=Math.max(0,(b.x-f.x)/f.w*original.width),sy=Math.max(0,(b.y-f.y)/f.h*original.height);
+ const sw=Math.min(original.width-sx,b.w/f.w*original.width),sh=Math.min(original.height-sy,b.h/f.h*original.height);
+ const cv=document.createElement('canvas'),k=Math.min(1,1400/Math.max(sw,sh));
+ cv.width=Math.max(1,Math.round(sw*k));cv.height=Math.max(1,Math.round(sh*k));
+ cv.getContext('2d').drawImage(original,sx,sy,sw,sh,0,0,cv.width,cv.height);
+ photo=cv;draw();
+}
+preview.addEventListener('pointerdown',e=>{if(!photo)return;drag={x:e.clientX,y:e.clientY,s:settings()};preview.setPointerCapture(e.pointerId)});
+preview.addEventListener('pointermove',e=>{
+ if(!drag||!photo)return;
+ const r=preview.getBoundingClientRect(),o=drag.s;
+ const scale=Math.max(1200/photo.width,400/photo.height)*o.zoom/100;
+ const dw=photo.width*scale,dh=photo.height*scale;
+ if(dw>1200)$b('bannerX').value=Math.max(0,Math.min(100,o.x+(e.clientX-drag.x)*1200/r.width/(1200-dw)*100));
+ if(dh>400)$b('bannerY').value=Math.max(0,Math.min(100,o.y+(e.clientY-drag.y)*400/r.height/(400-dh)*100));
+ draw();
+});
+preview.addEventListener('pointerup',()=>drag=null);
+preview.addEventListener('pointercancel',()=>drag=null);
+$b('saveBanner').addEventListener('click',()=>{
+ if(!photo){alert('먼저 사진을 선택해 주세요.');return}
+ if(original)updateCropPreview();
+ draw();
+ try{const url=canvas.toDataURL('image/jpeg',.78);localStorage.setItem(key,JSON.stringify({image:url,settings:settings()}));apply(url);close();alert('배너가 저장됐어요 ♡')}
+ catch{alert('저장 공간이 부족해요. 더 작은 사진으로 시도해 주세요.')}
+});
+$b('resetBanner').addEventListener('click',()=>{
+ if(!confirm('기본 배너로 돌아갈까요?'))return;
+ localStorage.removeItem(key);photo=null;original=null;cropStage.hidden=true;src='';apply('');close();
+});
+try{const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved?.image){apply(saved.image);readSettings(saved.settings||{});loadImage(saved.image).then(im=>{photo=im;draw()}).catch(()=>{})}}catch{}
+})();
+</script>
+
+
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const status=$('firebaseImportStatus'), cards=$('firebaseOfficialCards'), btn=$('connectOfficial');
+window.addEventListener('error',e=>{if(status && !status.textContent.includes('실패'))status.textContent='페이지 오류: '+e.message;});
+const urlInput=$('calendarUrl'),urlStatus=$('calendarUrlStatus');
+const saved='https://xiaxiaxia861215.github.io/jinjunxiu-schedule/';
+localStorage.setItem('xia_calendar_live_url',saved);
+urlInput.value=saved;
+function setLinks(url){document.querySelectorAll('[data-calendar-link]').forEach(a=>{a.href=url||'#';a.onclick=url?null:(e=>{e.preventDefault();urlStatus.textContent='먼저 정상 작동하는 공식 달력 주소를 입력해 주세요.';urlInput.focus()})})}
+setLinks(saved);
+$('saveCalendarUrl').addEventListener('click',()=>{const url=urlInput.value.trim();if(!/^https:\/\/[^\s]+$/i.test(url)){urlStatus.textContent='https://로 시작하는 실제 달력 주소를 입력해 주세요.';return}localStorage.setItem('xia_calendar_live_url',url);setLinks(url);urlStatus.textContent='달력 주소를 저장했어요.'});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let official=[];
+const officialLang=()=>window.xiaPlannerLanguage||localStorage.getItem('xia_manager_language')||'ko';
+const localized=(x,field)=>{
+ const lang=officialLang();
+ const suffix=lang==='zh'?'zh':lang==='ja'?'ja':'ko';
+ const aliases=field==='title'?['title','name']:field==='place'?['place','venue','location']:['description','detail','desc'];
+ for(const key of aliases){
+  for(const k of [key+suffix,key+'_'+suffix,key+suffix.toUpperCase()]){
+   if(typeof x[k]==='string'&&x[k].trim())return x[k];
+  }
+ }
+ // If the calendar has no translation for this field, fall back to Korean.
+ for(const key of aliases)for(const k of [key+'ko',key+'_ko',key]){
+  if(typeof x[k]==='string'&&x[k].trim())return x[k];
+ }
+ return '';
+};
+function renderOfficialCards(){
+ cards.innerHTML=official.map((x,i)=>`<div class="official-card"><div><strong>${esc(localized(x,'title')||'제목 없음')}</strong><span>📅 ${esc(x.date)} ${esc(x.time||'')} · ${esc(localized(x,'place')||'장소 미등록')}</span></div><button type="button" class="btn small" data-firebase-pick="${i}">${officialLang()==='zh'?'添加到我的演出':officialLang()==='ja'?'マイ公演に追加':'내 공연에 추가'}</button></div>`).join('');
+}
+document.addEventListener('xia-language-changed',renderOfficialCards);
+btn.addEventListener('click',async()=>{
+ btn.disabled=true;status.textContent='공식 일정 연결 중… (최대 15초 기다려 주세요)';cards.replaceChildren();
+ try{
+  const [{initializeApp,getApps},{getFirestore,collection,getDocs}]=await Promise.all([
+   import('https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js'),
+   import('https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js')]);
+  const config={apiKey:'AIzaSyCCpIrqaAL_qt-A6_I4UN9y0cGZr22C4Cs',authDomain:'xia-fan-calendar.firebaseapp.com',projectId:'xia-fan-calendar',storageBucket:'xia-fan-calendar.firebasestorage.app',messagingSenderId:'921232186204',appId:'1:921232186204:web:a8846244287c4dc4e9bf99'};
+  const app=getApps().find(x=>x.name==='xia-manager-reader')||initializeApp(config,'xia-manager-reader');
+  const snap=await Promise.race([getDocs(collection(getFirestore(app),'events')),new Promise((_,reject)=>setTimeout(()=>reject(new Error('15초 동안 서버 응답이 없습니다')),15000))]);
+  official=snap.docs.map(d=>({...d.data(),sourceId:d.id})).filter(x=>x.sourceId!=='xia_site_banner'&&/^\d{4}-\d{2}-\d{2}$/.test(x.date||'')&&['concert','musical','event','other'].includes(x.type));
+  official.sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
+  status.textContent=official.length?`공식 달력에서 ${official.length}개 일정을 찾았어요. 원하는 공연을 선택해 주세요.`:'연결됐지만 가져올 공연·행사 일정이 없어요.';
+  renderOfficialCards();
+ }catch(err){console.error(err);status.textContent=`일정 연결 실패: ${err.message||'알 수 없는 오류'}. 브라우저 인터넷 연결 또는 Firebase 읽기 권한을 확인해 주세요.`}
+ finally{btn.disabled=false}
+});
+cards.addEventListener('click',e=>{const b=e.target.closest('[data-firebase-pick]');if(!b)return;const x=official[Number(b.dataset.firebasePick)];if(!x)return;document.dispatchEvent(new CustomEvent('xia-official-pick',{detail:{sourceId:x.sourceId,title:localized(x,'title'),date:x.date,time:x.time||'',venue:localized(x,'place'),description:localized(x,'description')}}))});
+})();
+</script>
+
+<script id="xia-i18n">
+(()=>{
+const dictionary={"덕질 매니저":{"zh":"应援管理器","ja":"推し活マネージャー"},"나만의 덕질 플래너!":{"zh":"我的专属追星计划！","ja":"私だけの推し活プランナー！"},"공연 · 준비 · 여행까지":{"zh":"演出 · 准备 · 旅行","ja":"公演・準備・旅行まで"},"한 번에 관리하는":{"zh":"一站式管理","ja":"まとめて管理"},"✦ 왼쪽 사진 꾸미기":{"zh":"✦ 更换左侧照片","ja":"✦ 左の写真を編集"},"♡ 공식 일정 달력":{"zh":"♡ 官方行程日历","ja":"♡ 公式スケジュール"},"내 기록 백업":{"zh":"备份记录","ja":"記録をバックアップ"},"백업 불러오기":{"zh":"恢复备份","ja":"バックアップを復元"},"내 공연 & 티켓 관리":{"zh":"我的演出与门票","ja":"公演・チケット管理"},"맞춤형 체크리스트":{"zh":"专属清单","ja":"カスタムチェックリスト"},"덕질 여행 플래너":{"zh":"追星旅行计划","ja":"推し活旅行プランナー"},"내 공연":{"zh":"我的演出","ja":"マイ公演"},"남은 준비 항목":{"zh":"待办事项","ja":"残りの準備項目"},"가장 가까운 공연":{"zh":"最近的演出","ja":"次の公演"},"🎟️ 내 공연·티켓":{"zh":"🎟️ 演出·门票","ja":"🎟️ 公演・チケット"},"✅ 체크리스트":{"zh":"✅ 准备清单","ja":"✅ チェックリスト"},"✈️ 여행 플래너":{"zh":"✈️ 旅行计划","ja":"✈️ 旅行プランナー"},"🎟️ 나의 공연 & 티켓 관리":{"zh":"🎟️ 我的演出与门票","ja":"🎟️ 私の公演・チケット"},"+ 공연 등록":{"zh":"+ 添加演出","ja":"+ 公演を登録"},"전체":{"zh":"全部","ja":"すべて"},"예정":{"zh":"即将开始","ja":"予定"},"관람완료":{"zh":"已观看","ja":"観覧済み"},"📅 XIA 공식 일정 연동":{"zh":"📅 XIA 官方行程同步","ja":"📅 XIA公式日程連携"},"♡ 공식 일정 불러오기":{"zh":"♡ 导入官方行程","ja":"♡ 公式日程を読み込む"},"공식 달력 열기":{"zh":"打开官方日历","ja":"公式カレンダーを開く"},"공식 달력 주소 (한 번만 입력)":{"zh":"官方日历网址（只需输入一次）","ja":"公式カレンダーURL（初回のみ）"},"주소 저장":{"zh":"保存网址","ja":"URLを保存"},"일정 JSON 주소로 가져오기 (선택)":{"zh":"从JSON导入行程（可选）","ja":"JSONから日程を読み込む（任意）"},"공식 일정 JSON 주소":{"zh":"官方行程JSON网址","ja":"公式日程JSON URL"},"일정 읽기":{"zh":"读取行程","ja":"日程を読み込む"},"나만의 준비 체크리스트":{"zh":"我的准备清单","ja":"私の準備チェックリスト"},"어느 공연을 준비할까요?":{"zh":"准备哪场演出？","ja":"どの公演の準備をしますか？"},"🎫 공연 준비":{"zh":"🎫 演出准备","ja":"🎫 公演準備"},"✈️ 여행 준비":{"zh":"✈️ 旅行准备","ja":"✈️ 旅行準備"},"🧳 챙길 물건":{"zh":"🧳 随身物品","ja":"🧳 持ち物"},"📝 기타":{"zh":"📝 其他","ja":"📝 その他"},"+ 추가":{"zh":"+ 添加","ja":"+ 追加"},"덕질 여행 플래너 ✈️":{"zh":"追星旅行计划 ✈️","ja":"推し活旅行プランナー ✈️"},"여행할 공연 선택":{"zh":"选择旅行对应的演出","ja":"旅行する公演を選択"},"✈️ 항공권":{"zh":"✈️ 机票","ja":"✈️ 航空券"},"🏨 숙소":{"zh":"🏨 住宿","ja":"🏨 宿泊"},"🚆 교통":{"zh":"🚆 交通","ja":"🚆 交通"},"📅 일정/메모":{"zh":"📅 行程/备忘","ja":"📅 予定・メモ"},"🛫 가는 편":{"zh":"🛫 去程","ja":"🛫 往路"},"🛬 오는 편":{"zh":"🛬 返程","ja":"🛬 復路"},"+ 항목 추가":{"zh":"+ 添加项目","ja":"+ 項目を追加"},"+ 항목 저장":{"zh":"+ 保存项目","ja":"+ 項目を保存"},"수정 취소":{"zh":"取消编辑","ja":"編集をキャンセル"},"항공권 추가":{"zh":"添加机票","ja":"航空券を追加"},"공연 등록 ♡":{"zh":"添加演出 ♡","ja":"公演登録 ♡"},"공연명 *":{"zh":"演出名称 *","ja":"公演名 *"},"공연 날짜 *":{"zh":"演出日期 *","ja":"公演日 *"},"시작 시간":{"zh":"开始时间","ja":"開始時間"},"장소":{"zh":"地点","ja":"会場"},"좌석·구역":{"zh":"座位·区域","ja":"座席・エリア"},"예매처·티켓 메모":{"zh":"售票平台·门票备注","ja":"プレイガイド・チケットメモ"},"공연 포스터 사진 (선택)":{"zh":"演出海报（可选）","ja":"公演ポスター（任意）"},"기타 메모":{"zh":"其他备注","ja":"その他のメモ"},"취소":{"zh":"取消","ja":"キャンセル"},"공연 저장":{"zh":"保存演出","ja":"公演を保存"},"내 기기의 모든 기록 삭제":{"zh":"删除本设备的所有记录","ja":"この端末の全記録を削除"},"사진 크기":{"zh":"照片大小","ja":"写真サイズ"},"가로 위치":{"zh":"水平位置","ja":"横位置"},"세로 위치":{"zh":"垂直位置","ja":"縦位置"},"투명도":{"zh":"透明度","ja":"透明度"},"기본 배너":{"zh":"默认横幅","ja":"初期バナー"},"적용·저장 ♡":{"zh":"应用并保存 ♡","ja":"適用・保存 ♡"},"🖼️ 왼쪽 인물 사진 꾸미기":{"zh":"🖼️ 编辑左侧人物照片","ja":"🖼️ 左の人物写真を編集"},"버튼을 누르면 연결 결과가 여기에 표시됩니다.":{"zh":"点击按钮后将在此显示连接结果。","ja":"ボタンを押すと接続結果がここに表示されます。"},"입력 내용은 이 기기에 저장돼요.":{"zh":"输入内容仅保存在本设备。","ja":"入力内容はこの端末に保存されます。"},"준비할 항목 직접 추가":{"zh":"直接添加准备事项","ja":"準備項目を直接追加"},"예: JX 콘서트 CORE":{"zh":"例如：JX 演唱会 CORE","ja":"例：JXコンサート CORE"},"예: 잠실 핸드볼 경기장":{"zh":"例如：蚕室手球馆","ja":"例：蚕室ハンドボール競技場"},"예: R구역 5열":{"zh":"例如：R区第5排","ja":"例：Rエリア5列"},"예: 놀티켓, 현장 수령":{"zh":"例如：NOL票务、现场取票","ja":"例：NOLチケット、現地受取"},"입장 시간, 준비할 것 등":{"zh":"入场时间、准备物品等","ja":"入場時間、持ち物など"},"0% 준비 완료":{"zh":"0% 已完成","ja":"0% 準備完了"},"공식 일정 달력과 동일한 Firebase 일정 데이터를 읽어옵니다. 가져올 공연을 선택하면 내 공연 등록창이 열려요. 개인 좌석·예약 정보는 이 기기에만 저장됩니다.":{"zh":"读取与官方日历相同的Firebase行程数据。选择演出后即可添加到我的演出。个人座位及预订信息仅保存在本设备。","ja":"公式カレンダーと同じFirebaseの日程データを読み込みます。公演を選ぶと登録画面が開きます。座席・予約情報はこの端末だけに保存されます。"},"내가 가는 공연을 등록하고 D-DAY와 티켓 정보를 관리해요.":{"zh":"登记要去的演出，管理倒计时和门票信息。","ja":"参加する公演を登録してD-DAYとチケット情報を管理します。"},"공연별로 티켓팅·여행 계획·짐 싸기·기타 할 일을 구분해서 관리해요.":{"zh":"按演出分别管理抢票、旅行计划、行李和其他事项。","ja":"公演ごとにチケット・旅行計画・荷造り・その他を管理します。"},"공연별로 항공권·숙소·이동·일정을 정리해요. 금액은 선택 입력이에요.":{"zh":"按演出整理机票、住宿、交通和行程。金额可选填。","ja":"公演ごとに航空券・宿泊・移動・予定を整理します。金額は任意入力です。"},"🌷 공연 준비 · 여행 준비 · 챙길 물건 · 기타를 따로 관리해요. 체크한 내용은 자동 저장돼요.":{"zh":"🌷 分别管理演出准备、旅行准备、行李和其他事项。勾选后自动保存。","ja":"🌷 公演準備・旅行準備・持ち物・その他を分けて管理。チェック内容は自動保存されます。"},"작은 카드 이미지로 저장돼요. 새 사진을 선택하지 않으면 기존 사진을 유지합니다.":{"zh":"保存为小卡片图片。未选择新照片时保留原图。","ja":"小さなカード画像として保存します。新しい写真を選ばなければ元の写真を維持します。"},"기존 링크는 404 오류가 발생했습니다. 정상 작동하는 달력 주소를 입력해야 합니다.":{"zh":"原链接出现404错误，请填写有效的日历网址。","ja":"以前のリンクは404エラーでした。正しいカレンダーURLを入力してください。"},"수정":{"zh":"编辑","ja":"編集"},"추가":{"zh":"添加","ja":"追加"},"삭제":{"zh":"删除","ja":"削除"},"준비물":{"zh":"准备物品","ja":"準備物"},"여행":{"zh":"旅行","ja":"旅行"},"공연":{"zh":"演出","ja":"公演"},"물건":{"zh":"物品","ja":"持ち物"},"기타":{"zh":"其他","ja":"その他"},"숙소":{"zh":"住宿","ja":"宿泊"},"항공권":{"zh":"机票","ja":"航空券"},"교통":{"zh":"交通","ja":"交通"},"가는 편":{"zh":"去程","ja":"往路"},"오는 편":{"zh":"返程","ja":"復路"},"공연을 저장했어요 ♡":{"zh":"演出已保存 ♡","ja":"公演を保存しました ♡"},"공연을 삭제했어요":{"zh":"演出已删除","ja":"公演を削除しました"},"공연 포스터":{"zh":"演出海报","ja":"公演ポスター"},"좌석 배치도 확인":{"zh":"确认座位图","ja":"座席表を確認"},"팬클럽 가입 / 선예매 자격 확인":{"zh":"确认粉丝俱乐部会员资格及优先购票条件","ja":"ファンクラブ加入・先行予約資格の確認"},"선예매 신청 / 인증":{"zh":"申请／认证优先购票","ja":"先行予約の申請・認証"},"예매처 회원가입 / 본인 인증":{"zh":"售票网站注册／身份认证","ja":"チケットサイト登録・本人認証"},"선예매 날짜·시간 확인":{"zh":"确认优先购票日期和时间","ja":"先行予約日時を確認"},"티켓팅 완료":{"zh":"购票完成","ja":"チケット購入完了"},"결제 및 예매 내역 확인":{"zh":"确认支付及订票记录","ja":"決済・予約履歴の確認"},"티켓 배송 / 현장 수령 확인":{"zh":"确认门票配送／现场领取","ja":"チケット配送・現地受取の確認"},"공연 입장 및 본인 확인 규정 확인":{"zh":"确认入场及身份验证规定","ja":"入場・本人確認ルールの確認"},"MD 사전예약 / 구매 신청":{"zh":"周边商品预购／购买申请","ja":"グッズ事前予約・購入申込"},"응원봉 / 응원도구 준비":{"zh":"准备应援棒及应援用品","ja":"ペンライト・応援グッズの準備"},"항공권 / 기차표 예약":{"zh":"预订机票／火车票","ja":"航空券・列車チケットの予約"},"숙소 예약":{"zh":"预订住宿","ja":"宿泊予約"},"공항·역 ↔ 숙소 이동 경로 확인":{"zh":"确认机场／车站至住宿交通路线","ja":"空港・駅 ↔ 宿泊先の移動経路確認"},"숙소 ↔ 공연장 이동 경로 확인":{"zh":"确认住宿至演出场馆交通路线","ja":"宿泊先 ↔ 会場の移動経路確認"},"교통카드 / 교통패스 준비":{"zh":"准备交通卡／通票","ja":"交通系ICカード・パスの準備"},"로밍 / eSIM 준비 (해외)":{"zh":"准备漫游／eSIM（海外）","ja":"ローミング・eSIMの準備（海外）"},"여행 일정 최종 확인":{"zh":"最终确认旅行行程","ja":"旅行日程の最終確認"},"여권 / 지갑 / 현금":{"zh":"护照／钱包／现金","ja":"パスポート・財布・現金"},"신분증 / 여권 준비":{"zh":"准备身份证／护照","ja":"身分証・パスポートの準備"},"공연 티켓 / 신분증":{"zh":"演出门票／身份证","ja":"公演チケット・身分証"},"휴대폰 / 충전기 / 보조배터리":{"zh":"手机／充电器／移动电源","ja":"スマホ・充電器・モバイルバッテリー"},"휴대폰 저장 공간 확보":{"zh":"清理手机存储空间","ja":"スマホの空き容量確保"},"보조배터리 충전 완료":{"zh":"移动电源充电完成","ja":"モバイルバッテリー充電完了"},"의류 / 속옷 / 잠옷":{"zh":"衣物／内衣／睡衣","ja":"衣類・下着・パジャマ"},"세면도구 / 화장품":{"zh":"洗漱用品／化妆品","ja":"洗面用具・化粧品"},"상비약 / 개인 복용약":{"zh":"常备药／个人药品","ja":"常備薬・服用中の薬"},"응원봉 / 슬로건":{"zh":"应援棒／手幅","ja":"ペンライト・スローガン"},"촬영 장비 / 망원렌즈 (허용 시)":{"zh":"摄影设备／长焦镜头（允许时）","ja":"撮影機材・望遠レンズ（許可時）"},"캐리어 / 여행용 가방":{"zh":"行李箱／旅行包","ja":"スーツケース・旅行バッグ"},"준비 진행률":{"zh":"准备进度","ja":"準備の進捗"},"준비할 항목":{"zh":"准备事项","ja":"準備項目"},"먼저 공연을 등록해주세요":{"zh":"请先添加演出","ja":"まず公演を登録してください"},"공연마다 나만의 준비 항목이 생겨요.":{"zh":"每场演出都可以建立专属准备清单。","ja":"公演ごとに準備リストを作れます。"},"표시할 공연이 없어요":{"zh":"暂无演出","ja":"表示する公演がありません"},"공연을 등록하면 여기에 나타나요 ♡":{"zh":"添加演出后将在这里显示 ♡","ja":"公演を登録するとここに表示されます ♡"},"이 준비 항목을 삭제할까요?":{"zh":"确定删除此准备事项吗？","ja":"この準備項目を削除しますか？"},"이 항목을 삭제할까요?":{"zh":"确定删除此项目吗？","ja":"この項目を削除しますか？"},"현재 기기에 있는 기록을 백업 파일의 기록으로 교체할까요?":{"zh":"确定用备份替换本设备现有记录吗？","ja":"この端末の記録をバックアップの記録に置き換えますか？"},"기본 배너로 돌아갈까요?":{"zh":"恢复默认横幅吗？","ja":"初期バナーに戻しますか？"},"먼저 사진을 선택해 주세요.":{"zh":"请先选择照片。","ja":"先に写真を選んでください。"},"배너가 저장됐어요 ♡":{"zh":"横幅已保存 ♡","ja":"バナーを保存しました ♡"},"백업 파일을 저장했어요 ♡":{"zh":"备份文件已保存 ♡","ja":"バックアップを保存しました ♡"},"XIA 매니저 백업 파일이 아니에요.":{"zh":"这不是XIA管理器的备份文件。","ja":"XIAマネージャーのバックアップファイルではありません。"},"저장했어요! 상단 카드를 확인해 주세요 ♡":{"zh":"已保存！请查看上方卡片 ♡","ja":"保存しました！上のカードをご確認ください ♡"},"항목을 삭제했어요":{"zh":"项目已删除","ja":"項目を削除しました"},"이미 등록한 일정이에요.":{"zh":"此行程已添加。","ja":"この日程は登録済みです。"},"확인 후 공연 저장을 눌러주세요":{"zh":"确认后请点击保存演出","ja":"確認後「公演を保存」を押してください"},"공식 일정 달력에서 가져옴":{"zh":"从官方日历导入","ja":"公式カレンダーから読み込み"},"일정 데이터를 확인하고 있어요…":{"zh":"正在检查行程数据…","ja":"日程データを確認中…"},"공식 일정 연결 중… (최대 15초 기다려 주세요)":{"zh":"正在连接官方行程…（最多等待15秒）","ja":"公式日程に接続中…（最大15秒）"},"연결됐지만 가져올 공연·행사 일정이 없어요.":{"zh":"连接成功，但没有可导入的演出／活动。","ja":"接続しましたが読み込める公演・イベントがありません。"},"15초 동안 서버 응답이 없습니다":{"zh":"服务器15秒内无响应","ja":"15秒間サーバーから応答がありません"},"알 수 없는 오류":{"zh":"未知错误","ja":"不明なエラー"},"실패":{"zh":"失败","ja":"失敗"},"미입력":{"zh":"未填写","ja":"未入力"},"제목 없음":{"zh":"无标题","ja":"タイトルなし"},"날짜":{"zh":"日期","ja":"日付"},"출발 날짜":{"zh":"出发日期","ja":"出発日"},"이동 날짜":{"zh":"出行日期","ja":"移動日"},"날짜 확인":{"zh":"确认日期","ja":"日付確認"},"출발지":{"zh":"出发地","ja":"出発地"},"도착지":{"zh":"目的地","ja":"到着地"},"승차역 / 출발지":{"zh":"上车站／出发地","ja":"乗車駅・出発地"},"교통수단":{"zh":"交通工具","ja":"交通手段"},"노선 / 버스번호":{"zh":"线路／公交号码","ja":"路線・バス番号"},"상세 주소":{"zh":"详细地址","ja":"詳細住所"},"숙소 이름":{"zh":"住宿名称","ja":"宿泊施設名"},"위치 / 지역":{"zh":"位置／地区","ja":"場所・エリア"},"항공편":{"zh":"航班","ja":"航空便"},"항공사":{"zh":"航空公司","ja":"航空会社"},"편명":{"zh":"航班号","ja":"便名"},"일정/메모":{"zh":"行程／备注","ja":"日程・メモ"},"+ 항공편 추가":{"zh":"+ 添加航班","ja":"+ 航空便を追加"},"+ 숙소 추가":{"zh":"+ 添加住宿","ja":"+ 宿泊先を追加"},"+ 이동 경로 추가":{"zh":"+ 添加交通路线","ja":"+ 移動経路を追加"},"+ 일정 추가":{"zh":"+ 添加行程","ja":"+ 予定を追加"},"항목 삭제":{"zh":"删除项目","ja":"項目を削除"},"닫기":{"zh":"关闭","ja":"閉じる"},"공연 등록":{"zh":"添加演出","ja":"公演を登録"},"사진 자르기 영역":{"zh":"照片裁剪区域","ja":"写真の切り抜き範囲"},"내가 좋아하는":{"zh":"我喜欢的","ja":"お気に入りの"},"준수 사진을 넣어주세요":{"zh":"请添加俊秀的照片","ja":"ジュンスの写真を入れてください"},"개 등록됨":{"zh":"项已登记","ja":"件登録済み"},"등록됨":{"zh":"已登记","ja":"登録済み"},"저장 공간이 부족해요. 백업해 주세요.":{"zh":"存储空间不足，请备份。","ja":"保存容量が不足しています。バックアップしてください。"},"저장 공간이 부족해요. 더 작은 사진으로 시도해 주세요.":{"zh":"存储空间不足，请尝试更小的照片。","ja":"保存容量が不足しています。小さい写真でお試しください。"},"포스터 이미지를 읽지 못했어요.":{"zh":"无法读取海报图片。","ja":"ポスター画像を読み込めませんでした。"},"파일이 너무 큽니다.":{"zh":"文件过大。","ja":"ファイルが大きすぎます。"},"기차":{"zh":"火车","ja":"電車"},"지하철":{"zh":"地铁","ja":"地下鉄"},"버스":{"zh":"公交车","ja":"バス"},"택시":{"zh":"出租车","ja":"タクシー"},"도보":{"zh":"步行","ja":"徒歩"},"렌터카":{"zh":"租车","ja":"レンタカー"},"선택":{"zh":"选择","ja":"選択"},"저장":{"zh":"保存","ja":"保存"},"XIA 김준수":{"zh":"XIA 金俊秀","ja":"XIA キム・ジュンス"},"김준수":{"zh":"金俊秀","ja":"キム・ジュンス"},"💗 이 매니저에 입력한 공연·좌석·여행 정보는":{"zh":"💗 在此管理器中输入的演出、座位和旅行信息","ja":"💗 このマネージャーに入力した公演・座席・旅行情報は"},"현재 사용하는 브라우저에만 저장":{"zh":"仅保存在当前浏览器","ja":"現在使用しているブラウザにのみ保存"},"돼요. GitHub에 개인 정보가 올라가지 않아요. 휴대폰을 바꾸거나 브라우저 데이터를 삭제하기 전에는 꼭":{"zh":"。个人信息不会上传到GitHub。更换手机或清除浏览器数据前，请务必","ja":"されます。GitHubに個人情報はアップロードされません。機種変更やブラウザデータ削除の前に必ず"},"을 해주세요. 공식 일정 불러오기는 인터넷 연결과 달력 데이터의 공개 읽기 권한이 필요해요.":{"zh":"してください。导入官方日程需要联网及日历数据的公开读取权限。","ja":"してください。公式日程の読み込みにはネット接続と公開読み取り権限が必要です。"},"아직 이 분류의 항목이 없어요. 아래에서 추가해 보세요.":{"zh":"此分类暂无事项，请在下方添加。","ja":"このカテゴリには項目がありません。下から追加してください。"},"공연 미지정 · 자유 여행":{"zh":"未指定演出 · 自由旅行","ja":"公演未指定・自由旅行"},"공연 미지정":{"zh":"未指定演出","ja":"公演未指定"},"여행 계획":{"zh":"旅行计划","ja":"旅行計画"},"기록이 없어요. 아래에서 추가해 보세요 ♡":{"zh":"暂无记录，请在下方添加 ♡","ja":"まだ記録がありません。下から追加してください ♡"},"아직 등록한 항목이 없어요. 아래에서 추가해 보세요 ♡":{"zh":"暂无记录，请在下方添加 ♡","ja":"まだ登録した項目がありません。下から追加してください ♡"},"여행할 공연을 선택해 주세요.":{"zh":"请选择旅行对应的演出。","ja":"旅行する公演を選んでください。"},"공연 준비":{"zh":"演出准备","ja":"公演準備"},"여행 준비":{"zh":"旅行准备","ja":"旅行準備"},"챙길 물건":{"zh":"携带物品","ja":"持ち物"},"기타 항목":{"zh":"其他事项","ja":"その他の項目"},"공연 항목":{"zh":"演出事项","ja":"公演の項目"},"여행 항목":{"zh":"旅行事项","ja":"旅行の項目"},"물건 항목":{"zh":"物品清单","ja":"持ち物リスト"},"일정 메모":{"zh":"行程备注","ja":"予定メモ"},"여행 메모":{"zh":"旅行备注","ja":"旅行メモ"},"예약번호":{"zh":"预订编号","ja":"予約番号"},"예약 번호":{"zh":"预订编号","ja":"予約番号"},"출발 시간":{"zh":"出发时间","ja":"出発時刻"},"도착 시간":{"zh":"到达时间","ja":"到着時刻"},"체크인":{"zh":"入住","ja":"チェックイン"},"체크아웃":{"zh":"退房","ja":"チェックアウト"},"숙소명":{"zh":"住宿名称","ja":"宿泊施設名"},"금액":{"zh":"金额","ja":"金額"},"통화":{"zh":"货币","ja":"通貨"},"비용":{"zh":"费用","ja":"費用"},"메모":{"zh":"备注","ja":"メモ"},"좌석":{"zh":"座位","ja":"座席"},"구역":{"zh":"区域","ja":"エリア"},"편도":{"zh":"单程","ja":"片道"},"왕복":{"zh":"往返","ja":"往復"},"위탁수하물":{"zh":"托运行李","ja":"預け荷物"},"기내수하물":{"zh":"随身行李","ja":"機内持ち込み手荷物"},"수하물":{"zh":"行李","ja":"手荷物"},"없음":{"zh":"无","ja":"なし"},"있음":{"zh":"有","ja":"あり"},"출발":{"zh":"出发","ja":"出発"},"도착":{"zh":"到达","ja":"到着"},"환승":{"zh":"换乘","ja":"乗り換え"},"이동":{"zh":"交通","ja":"移動"},"저장 완료":{"zh":"保存成功","ja":"保存完了"},"사진을 선택하면 네모 선택 영역이 계속 표시됩니다. 네모를 움직이거나 크기를 바꿀 때마다 아래 배너가 즉시 바뀝니다.":{"zh":"选择照片后可调整裁剪框，拖动或改变大小即可实时预览横幅。","ja":"写真を選ぶと切り抜き枠が表示されます。移動やサイズ変更がプレビューに反映されます。"},"네모 안쪽을 끌면 이동, 오른쪽 아래 분홍색 모서리를 끌면 크기를 조절해요.":{"zh":"拖动方框内部可移动，拖动右下角粉色手柄可调整大小。","ja":"枠内をドラッグして移動、右下のピンクの角でサイズ変更できます。"},"① 원하는 부분 선택 · 네모는 계속 유지돼요":{"zh":"① 选择所需区域 · 裁剪框会保留","ja":"① 範囲を選択・枠は表示されたままです"},"② 네모를 유지한 채 아래에서 크기·위치·투명도를 조절하세요.":{"zh":"② 保持裁剪框并在下方调整大小、位置和透明度。","ja":"② 枠を保ったまま下でサイズ・位置・透明度を調整してください。"},"Made with ♡ for XIA · 나만의 덕질 라이프":{"zh":"Made with ♡ for XIA · 我的追星生活","ja":"Made with ♡ for XIA · 私の推し活ライフ"},"개인 기록은 이 기기에만 보관됩니다.":{"zh":"个人记录仅保存在本设备。","ja":"個人の記録はこの端末にのみ保存されます。"},"준비 완료":{"zh":"准备完成","ja":"準備完了"},"항목 추가":{"zh":"添加项目","ja":"項目を追加"},"항목 저장":{"zh":"保存项目","ja":"項目を保存"},"항목 수정":{"zh":"编辑项目","ja":"項目を編集"},"공연 삭제":{"zh":"删除演出","ja":"公演を削除"},"공연 수정":{"zh":"编辑演出","ja":"公演を編集"},"공연 추가":{"zh":"添加演出","ja":"公演を追加"},"등록한 항목이 없어요.":{"zh":"暂无记录。","ja":"登録した項目がありません。"},"사진 선택":{"zh":"选择照片","ja":"写真を選択"},"사진 등록":{"zh":"添加照片","ja":"写真を登録"},"파일 선택":{"zh":"选择文件","ja":"ファイルを選択"},"기타 사항":{"zh":"其他事项","ja":"その他の事項"},"등록":{"zh":"添加","ja":"登録"},"하차역 / 도착지":{"zh":"下车站／目的地","ja":"降車駅・到着地"},"출발 시간 (선택)":{"zh":"出发时间（可选）","ja":"出発時刻（任意）"},"소요 시간 (선택)":{"zh":"所需时间（可选）","ja":"所要時間（任意）"},"환승 / 이동 구간":{"zh":"换乘／移动路段","ja":"乗り換え・移動区間"},"환승 상세":{"zh":"换乘详情","ja":"乗り換え詳細"},"버스 → 지하철 → 도보처럼 구간을 원하는 만큼 추가하고 순서를 바꿀 수 있어요.":{"zh":"可按需添加公交→地铁→步行等路段并调整顺序。","ja":"バス→地下鉄→徒歩など区間を追加し、順番を変更できます。"},"구간":{"zh":"路段","ja":"区間"},"구분":{"zh":"分类","ja":"区分"},"상세 정보 펼쳐보기":{"zh":"展开详细信息","ja":"詳細情報を表示"},"지도 링크 열기":{"zh":"打开地图链接","ja":"地図リンクを開く"},"수정 저장":{"zh":"保存修改","ja":"変更を保存"},"예: 2호선 또는 6002번":{"zh":"例如：2号线或6002路","ja":"例：2号線または6002番"},"비고 / 메모":{"zh":"备注","ja":"備考・メモ"},"추가 메모":{"zh":"补充备注","ja":"追加メモ"},"출발 공항":{"zh":"出发机场","ja":"出発空港"},"도착 공항":{"zh":"到达机场","ja":"到着空港"},"출발 공항 / 역":{"zh":"出发机场／车站","ja":"出発空港・駅"},"도착 공항 / 역":{"zh":"到达机场／车站","ja":"到着空港・駅"},"체크인 날짜":{"zh":"入住日期","ja":"チェックイン日"},"체크아웃 날짜":{"zh":"退房日期","ja":"チェックアウト日"},"숙소 주소":{"zh":"住宿地址","ja":"宿泊先住所"},"예약 사이트":{"zh":"预订网站","ja":"予約サイト"},"예약 사이트 / 앱":{"zh":"预订网站／应用","ja":"予約サイト・アプリ"},"예약 확인번호":{"zh":"预订确认号","ja":"予約確認番号"},"예약자 이름":{"zh":"预订人姓名","ja":"予約者名"},"예약 금액":{"zh":"预订金额","ja":"予約金額"},"결제 금액":{"zh":"支付金额","ja":"支払金額"},"교통 예약":{"zh":"交通预订","ja":"交通予約"},"교통편 추가":{"zh":"添加交通","ja":"交通を追加"},"교통 추가":{"zh":"添加交通","ja":"交通を追加"},"숙소 추가":{"zh":"添加住宿","ja":"宿泊先を追加"},"일정 추가":{"zh":"添加行程","ja":"予定を追加"},"항공편 추가":{"zh":"添加航班","ja":"航空便を追加"},"이동 경로 추가":{"zh":"添加路线","ja":"移動経路を追加"},"숙소 수정":{"zh":"编辑住宿","ja":"宿泊先を編集"},"항공권 수정":{"zh":"编辑机票","ja":"航空券を編集"},"일정 수정":{"zh":"编辑行程","ja":"予定を編集"},"교통 수정":{"zh":"编辑交通","ja":"交通を編集"},"가는 편 항공권 추가":{"zh":"添加去程机票","ja":"往路の航空券を追加"},"오는 편 항공권 추가":{"zh":"添加返程机票","ja":"復路の航空券を追加"},"가는 편 항공권 수정":{"zh":"编辑去程机票","ja":"往路の航空券を編集"},"오는 편 항공권 수정":{"zh":"编辑返程机票","ja":"復路の航空券を編集"},"공연을 준비할까요?":{"zh":"准备哪场演出？","ja":"どの公演の準備をしますか？"},"사진을 넣어주세요":{"zh":"请添加照片","ja":"写真を入れてください"},"내 기록을 백업":{"zh":"备份我的记录","ja":"記録をバックアップ"},"선택 안 함":{"zh":"未选择","ja":"未選択"},"미정":{"zh":"未定","ja":"未定"},"금":{"zh":"五","ja":"金"},"목":{"zh":"四","ja":"木"},"수":{"zh":"三","ja":"水"},"화":{"zh":"二","ja":"火"},"월":{"zh":"一","ja":"月"},"토":{"zh":"六","ja":"土"},"일":{"zh":"日","ja":"日"}};
+const originals=new WeakMap();
+const lastRendered=new WeakMap();
+const attrOriginals=new WeakMap();
+let language=localStorage.getItem('xia_manager_language')||'ko';
+window.xiaPlannerLanguage=language;
+const bar=document.createElement('div');
+bar.id='xiaLanguageBar';
+bar.innerHTML='<span>🌐 Language</span><button type="button" data-lang="ko">한국어</button><button type="button" data-lang="zh">中文</button><button type="button" data-lang="ja">日本語</button>';
+document.body.prepend(bar);
+const css=document.createElement('style');
+css.textContent='#xiaLanguageBar{position:relative;z-index:99;display:flex;align-items:center;justify-content:flex-end;gap:7px;padding:10px max(14px,calc((100vw - 1100px)/2));background:#fff7fc;color:#88356c;font-size:13px;flex-wrap:wrap}#xiaLanguageBar button{border:1px solid #e9c4de;border-radius:18px;background:white;color:#84336b;padding:7px 13px;cursor:pointer;font-weight:700}#xiaLanguageBar button.active{background:#c653a0;color:white;border-color:#c653a0}';
+document.head.append(css);
+function translate(raw){
+ if(language==='ko')return raw;
+ const t=raw.trim();if(!t)return raw;
+ const tr=k=>dictionary[k]?.[language];
+ let result=tr(t);
+ if(!result){
+  const pct=t.match(/^(\d+)% 준비 완료(?: \((\d+\/\d+)\))?$/);
+  if(pct)result=pct[1]+'% '+(language==='zh'?'已完成':'準備完了')+(pct[2]?' ('+pct[2]+')':'');
+ }
+ if(!result){
+  result=t;
+  // Preserve user-created notes, but translate app UI fragments in mixed strings.
+  const keys=Object.keys(dictionary).filter(k=>k.length>=4).sort((a,b)=>b.length-a.length);
+  for(const k of keys)if(result.includes(k))result=result.split(k).join(tr(k)||k);
+ }
+ const weekday=language==='zh'?{'일':'日','월':'一','화':'二','수':'三','목':'四','금':'五','토':'六'}:{'일':'日','월':'月','화':'火','수':'水','목':'木','금':'金','토':'土'};
+ result=result.replace(/(\d{4}[.\-]\d{2}[.\-]\d{2})\s*\(([일월화수목금토])\)/g,(_,date,day)=>date+' ('+weekday[day]+')');
+ result=result.replace(/(\d{4}[.\-]\d{2}[.\-]\d{2})\s*\(([日一二三四五六])\)/g,(_,date,day)=>date+' ('+(language==='ja'?{'日':'日','一':'月','二':'火','三':'水','四':'木','五':'金','六':'土'}[day]:day)+')');
+ if(result===t)return raw;
+ return raw.replace(t,result);
+}
+function walk(root){
+ if(!root||root.nodeType===3){
+  if(!root)return;
+  const parent=root.parentElement;
+  if(!parent||parent.closest('#xiaLanguageBar,script,style,textarea,[contenteditable]'))return;
+  if(!originals.has(root))originals.set(root,root.nodeValue);
+  let original=originals.get(root);
+  const last=lastRendered.get(root);
+  if(last!==undefined && root.nodeValue!==last && root.nodeValue!==original){
+   original=root.nodeValue;originals.set(root,original);
+  }
+  const target=language==='ko'?original:translate(original);
+  lastRendered.set(root,target);
+  if(root.nodeValue!==target)root.nodeValue=target;
+  return;
+ }
+ if(root.nodeType!==1)return;
+ if(root.matches('script,style,#xiaLanguageBar'))return;
+ if(root.matches('input,textarea')){
+  let o=attrOriginals.get(root);
+  if(!o){o={placeholder:root.getAttribute('placeholder'),aria:root.getAttribute('aria-label')};attrOriginals.set(root,o);}
+  for(const [key,val] of [['placeholder',o.placeholder],['aria-label',o.aria]]){
+   if(val!==null)root.setAttribute(key,language==='ko'?val:translate(val));
+  }
+ }
+ // TreeWalker visits text nodes only; translate input attributes separately.
+ const fields=root.querySelectorAll('input,textarea,select,option');
+ for(const field of fields){
+  let o=attrOriginals.get(field);
+  if(!o){o={placeholder:field.getAttribute('placeholder'),aria:field.getAttribute('aria-label'),title:field.getAttribute('title')};attrOriginals.set(field,o);}
+  for(const [key,val] of [['placeholder',o.placeholder],['aria-label',o.aria],['title',o.title]]){
+   if(val!==null)field.setAttribute(key,language==='ko'?val:translate(val));
+  }
+ }
+ const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+ const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+ nodes.forEach(walk);
+}
+let busy=false;
+function render(){
+ if(busy)return;busy=true;
+ try{
+  document.documentElement.lang=language==='zh'?'zh-CN':language==='ja'?'ja':'ko';
+  document.querySelectorAll('#xiaLanguageBar button').forEach(b=>b.classList.toggle('active',b.dataset.lang===language));
+  walk(document.body);
+ }finally{busy=false}
+}
+bar.addEventListener('click',e=>{
+ const btn=e.target.closest('[data-lang]');if(!btn)return;
+ language=btn.dataset.lang;window.xiaPlannerLanguage=language;localStorage.setItem('xia_manager_language',language);render();document.dispatchEvent(new Event('xia-language-changed'));
+});
+let pending=false;
+new MutationObserver(()=>{
+ if(busy||pending)return;pending=true;
+ queueMicrotask(()=>{pending=false;render()});
+}).observe(document.body,{subtree:true,childList:true,characterData:true});
+render();
+})();
+</script>
+</body></html>
