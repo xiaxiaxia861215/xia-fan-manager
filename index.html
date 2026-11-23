@@ -767,20 +767,41 @@ if(memo){function refreshMemo(){if(['공식 일정 달력에서 가져옴','公�
  input.classList.add('xia-native-time');input.setAttribute('tabindex','-1');
  const picker=document.createElement('div');picker.className='xia-time-picker';picker.setAttribute('role','group');
  const period=document.createElement('select'),hour=document.createElement('select'),minute=document.createElement('select');
- period.setAttribute('aria-label','AM/PM');hour.setAttribute('aria-label','Hour');minute.setAttribute('aria-label','Minute');
+ period.setAttribute('aria-label','AM/PM');period.setAttribute('data-xia-period','true');hour.setAttribute('aria-label','Hour');minute.setAttribute('aria-label','Minute');
  for(let h=1;h<=12;h++)hour.add(new Option(String(h).padStart(2,'0'),String(h)));
  for(let m=0;m<60;m++)minute.add(new Option(String(m).padStart(2,'0'),String(m)));
  const colon=document.createElement('span');colon.className='xia-time-colon';colon.textContent=':';
  picker.append(period,hour,colon,minute);input.after(picker);
  const language=()=>window.xiaPlannerLanguage||'ko';
- function setPeriodLabels(){const labels={ko:['오전','오후'],ja:['午前','午後'],zh:['上午','下午']}[language()]||['AM','PM'];const v=period.value;period.replaceChildren(new Option(labels[0],'am'),new Option(labels[1],'pm'));period.value=v||'am';}
+ function setPeriodLabels(){
+   const lang=window.xiaPlannerLanguage||localStorage.getItem('xia_manager_language')||document.documentElement.lang.split('-')[0]||'ko';
+   const labels=({ko:['오전','오후'],ja:['午前','午後'],zh:['上午','下午']})[lang]||['AM','PM'];
+   const selected=period.value||'am';
+   for(const [i,value] of ['am','pm'].entries()){
+     let option=period.options[i];
+     if(!option){option=new Option(labels[i],value);period.add(option);}
+     if(option.text!==labels[i])option.text=labels[i];
+     option.value=value;
+   }
+   while(period.options.length>2)period.remove(2);
+   period.value=selected;
+ }
+ // The global translation observer also touches <option> text. Keep these
+ // labels synchronized after its updates, without changing the selected time.
+ let syncing=false;
+ new MutationObserver(()=>{
+   if(syncing)return;
+   const lang=window.xiaPlannerLanguage||localStorage.getItem('xia_manager_language')||'ko';
+   const wanted=({ko:['오전','오후'],ja:['午前','午後'],zh:['上午','下午']})[lang]||['AM','PM'];
+   if(period.options.length===2&&period.options[0].text===wanted[0]&&period.options[1].text===wanted[1])return;
+   syncing=true;setPeriodLabels();queueMicrotask(()=>{syncing=false;});
+ }).observe(period,{subtree:true,childList:true,characterData:true});
+
  function fromNative(){const value=input.value||'';const match=/^(\d{1,2}):(\d{2})/.exec(value);if(!match){period.value='am';hour.value='12';minute.value='0';return;}const h=Number(match[1]);period.value=h>=12?'pm':'am';hour.value=String(h%12||12);minute.value=String(Number(match[2]));}
  function toNative(){let h=Number(hour.value)%12;if(period.value==='pm')h+=12;input.value=String(h).padStart(2,'0')+':'+String(minute.value).padStart(2,'0');input.dispatchEvent(new Event('change',{bubbles:true}));}
  [period,hour,minute].forEach(el=>el.addEventListener('change',toNative));
  setPeriodLabels();fromNative();
  document.addEventListener('xia-language-changed',()=>{setPeriodLabels();});
- // Keep the visible AM/PM selector synchronized after language UI rerenders.
- picker.addEventListener('focusin',setPeriodLabels);
  const modal=document.getElementById('showModal');
  if(modal){new MutationObserver(()=>{if(!modal.hidden)requestAnimationFrame(fromNative);}).observe(modal,{attributes:true,attributeFilter:['hidden']});}
  document.getElementById('addShow')?.addEventListener('click',()=>requestAnimationFrame(fromNative));
@@ -789,5 +810,5 @@ if(memo){function refreshMemo(){if(['공식 일정 달력에서 가져옴','公�
  document.getElementById('showForm')?.addEventListener('submit',toNative,true);
 })();
 </script>
-<div id="xia-build-version" aria-label="Build version" style="text-align:center;padding:12px;color:#947b91;font-size:11px">XIA Fan Planner · v43</div>
+<div id="xia-build-version" aria-label="Build version" style="text-align:center;padding:12px;color:#947b91;font-size:11px">XIA Fan Planner · v44</div>
 </body></html>
